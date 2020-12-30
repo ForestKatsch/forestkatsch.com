@@ -18,8 +18,21 @@ ${imageUrl ? html`<meta name="twitter:image" content="${imageUrl}" />` : ''}
 `;  
 }
 
+export function openGraphMetaTags(page: Page, imageUrl?: string): TemplateResult {
+  return html`
+<meta property="og:url" content="${page.link(page.path, true)}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="${page.title}" />
+<meta property="og:description" content="${page.meta.summary}" />
+${imageUrl ? html`<meta property="og:image" content="${imageUrl}" />` : ''}
+`;
+}
+
 export function metaEmbed(page: Page, imageUrl?: string): TemplateResult {
-  return twitterCardMetaTags(page, imageUrl);
+  return [
+    openGraphMetaTags(page, imageUrl),
+    twitterCardMetaTags(page, imageUrl),
+  ]
 }
 
 export function htmlPage({
