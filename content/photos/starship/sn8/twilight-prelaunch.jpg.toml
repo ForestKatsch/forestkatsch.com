@@ -1,0 +1,16 @@
+
+title = 'SN8 the night before'
+summary = "SN8 stands tall after the first day of flight windows ended without a launch."
+
+tags = ['starship', 'sn8', 'rocket']
+
+publishDate = 2020-12-08T16:16:04-06:00
+
+# This one image is missing some EXIF data for some reason?
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++
+
+I drove down for this launch window, but SN8 didn't fly due to a [Raptor auto-abort](https://twitter.com/spacex/status/1336441306944454656).

@@ -1,0 +1,48 @@
+
+[site]
+title = "Forest Katsch"
+
+[content]
+path = "./content/"
+
+[static]
+path = "./static"
+output = ""
+copy = true
+
+[handlers.markdown]
+extensions = [".md"]
+handler = "./handlers/markdown.ts"
+
+[handlers.listing]
+handler = "./handlers/listing.ts"
+
+[handlers.home]
+handler = "./handlers/listing.ts"
+
+[handlers.home.options]
+home = true
+
+[handlers.album]
+handler = "./handlers/album.ts"
+
+[handlers.image]
+extensions = [".jpg", ".png"]
+handler = "./handlers/image.ts"
+
+[transform]
+operations = [
+  "media-metadata-read",
+  "media-copy",
+  "media-compress",
+  "media-thumbnail",
+
+  "album-reference",
+  
+  "tag-generate",
+  
+  "@render",
+]
+
+[output]
+path = "dist"
