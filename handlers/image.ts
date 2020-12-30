@@ -127,36 +127,43 @@ export default class ImageContentHandler extends TextContentHandler {
   }
 
   async mediaReadExif(page: Page): Promise<void> {
-    let exif = await readExif(page.absoluteContentFilename);
-
     page.addTag('@photo');
     page.addTag('@image');
     page.addTag('@media');
 
-    let exifMeta = {
-      camera: {
-        make: resolveCameraMake(exif.Make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
-        model: resolveCameraModel(exif.Model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
-      },
+    let exif: {[key: string]: any} = {};
+    let exifMeta: {[key: string]: any} | null = null;
 
-      lens: {
-        model: exif.LensModel
-      },
+    try {
+      exif = await readExif(page.absoluteContentFilename);
+      
+      exifMeta = {
+        camera: {
+          make: resolveCameraMake(exif.Make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
+          model: resolveCameraModel(exif.Model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
+        },
 
-      capture: {
-        fstop: exif.FNumber,
-        exposure: exif.ExposureTime,
-        iso: exif.ISO,
-        focalLength: exif.FocalLength,
-        focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
-      }
-    };
+        lens: {
+          model: exif.LensModel
+        },
+
+        capture: {
+          fstop: exif.FNumber,
+          exposure: exif.ExposureTime,
+          iso: exif.ISO,
+          focalLength: exif.FocalLength,
+          focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
+        }
+      };
+    } catch(err) {
+      this.site.log.warn(`error while reading exif data in '${page.sourcePath}':`, err);
+    }
 
     page._meta.image = _.merge(page.meta.image, {
       type: 'photo',
 
-      width: exif.ExifImageWidth,
-      height: exif.ExifImageHeight,
+      width: exif ? exif.ExifImageWidth : 1,
+      height: exif ? exif.ExifImageHeight : 1,
 
       exif: exifMeta
     });
@@ -211,7 +218,7 @@ export default class ImageContentHandler extends TextContentHandler {
   renderPage(page: Page): TemplateResult {
     let details = '(No EXIF data detected in image)';
 
-    if(page.meta.image.type === 'photo') {
+    if(page.meta.image.type === 'photo' && page.meta.image.exif) {
       let exif = page.meta.image.exif;
 
       let exposure = exif.capture.exposure;
