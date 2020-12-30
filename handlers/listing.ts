@@ -3,7 +3,7 @@ import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
 import {htmlPage} from './templates/html.ts';
 import {pageHeader, pageFooter} from './templates/page.ts';
-import {markdown} from './templates/markdown.ts';
+import {markdown, markdownInline} from './templates/markdown.ts';
 
 import {listingPublishDate} from './templates/date.ts';
 
@@ -35,7 +35,7 @@ ${homePages.map((p) => p.render('listing', page))}
   renderInfobox(page: Page): TemplateResult {
     return html`
 <section class="page-content__infobox text">
-  <h1>${markdown(page.meta.title)}</h1>
+  <h1>${markdownInline(page.meta.title)}</h1>
   <div class="page-content__infobox-content">${markdown(page.contents)}</div>
 ${this.options.home ? this.renderHomeLinks(page) : ''}
 </section>

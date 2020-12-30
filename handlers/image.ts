@@ -9,7 +9,7 @@ import {headerPublishDate, listingPublishDate} from './templates/date.ts';
 
 import {unsafe, ApogeeError, Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
-import {htmlPage} from './templates/html.ts';
+import {htmlPage, metaEmbed} from './templates/html.ts';
 import {pageHeader, pageFooter} from './templates/page.ts';
 import {markdown} from './templates/markdown.ts';
 
@@ -276,6 +276,8 @@ if(navigator.canShare) {
     
     return htmlPage({
       page: page,
+
+      head: metaEmbed(page, coverImagePath),
 
       body: html`
 ${pageHeader(page)}

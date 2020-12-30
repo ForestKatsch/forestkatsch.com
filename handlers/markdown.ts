@@ -14,7 +14,6 @@ export default class MarkdownContentHandler extends TextContentHandler {
     this.addRenderVariant('@page', this.renderPage);
     
     this.addRenderVariant('listing', this.renderListing);
-    this.addRenderVariant('listing-album', this.renderListingAlbum);
 
     this.meta.header = {
       show: true
@@ -22,11 +21,9 @@ export default class MarkdownContentHandler extends TextContentHandler {
   }
 
   renderListingAlbum(page: Page, variant: string, listingPage: Page): TemplateResult {
-    if(page.embed) {
-      return html`
+    return html`
 <section class="page-listing-entry page-listing-entry__embed text">${markdown(page.contents)}</section>
 `;
-    }
   }
   
   renderListing(page: Page, variant: string, listingPage: Page): TemplateResult {
@@ -37,7 +34,7 @@ export default class MarkdownContentHandler extends TextContentHandler {
      href="${listingPage.link(page.path)}">
     <header class="page-listing-entry__header">
       <span class="page-listing-entry__header-title">${page.meta.title}</span>
-      ${listingPublishDate(page, 'page-listing-entry__header-date', '')}
+      ${listingPublishDate(page)}
     </header>
     <div class="page-listing-entry__caption">${markdown(page.meta.summary)}</div>
     <div class="page-listing-entry__footer">

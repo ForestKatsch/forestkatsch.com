@@ -1,4 +1,4 @@
-title = ''
+title = 'Forest Katsch'
 handler = "home"
 
 [infobox]

@@ -19,7 +19,7 @@ export function pageHeader(page: Page): TemplateResult {
 }
 
 export function pageFooter(page: Page): TemplateResult {
-  let pageLicense = 'All rights reserved.';
+  let pageLicense: TemplateResult = 'All rights reserved.';
 
   if(page.meta.license) {
     pageLicense = markdown(`The contents of this page are licensed under the [${page.meta.license.name}](${page.meta.license.url}) license.`);

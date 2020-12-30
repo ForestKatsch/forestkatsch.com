@@ -7,7 +7,7 @@ export function toDisplayDate(date: Date): string {
   return DateTime.fromJSDate(date).toLocaleString(DateTime.DATE_FULL);
 }
 
-export function publishDate(page: Page, classes?: string = '', before?: string = ''): TemplateResult {
+export function publishDate(page: Page, classes: string = '', before: string = ''): TemplateResult {
   // Hide the date if it's unset.
   if(page.meta.publishDate < new Date(3600)) {
     return '';
