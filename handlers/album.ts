@@ -67,7 +67,7 @@ ${mediaPageCountMore > 0 ? html`
       <div class="preview preview-more"><span class="text">+${mediaPageCountMore}</span></div>
       ` : ''}
 ${mediaPages.map((mediaPage) => html`
-      <img class="preview" src="${mediaPage.handler.getThumbnailPath(mediaPage)}" />
+      <img class="preview" src="${listingPage.link(mediaPage.handler.getThumbnailPath(mediaPage))}" />
 `)}
     </div>
   </a>

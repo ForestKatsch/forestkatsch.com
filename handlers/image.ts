@@ -277,7 +277,7 @@ if(navigator.canShare) {
     return htmlPage({
       page: page,
 
-      head: metaEmbed(page, coverImagePath),
+      head: metaEmbed(page, page.link(this.getMediaOutputPath(page, 'cover'), true)),
 
       body: html`
 ${pageHeader(page)}

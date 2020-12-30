@@ -1,4 +1,4 @@
 
-export * from 'https://deno.land/x/apogee@0.1.0-alpha/index.ts';
-//export * from 'https://raw.githubusercontent.com/ForestKatsch/apogee-ssg/main/src/index.ts';
-//export * from '../../Software/Apogee/index.ts';
+export * from 'https://deno.land/x/apogee@0.1.1-alpha/mod.ts';
+
+//export * from '../../Software/Apogee/mod.ts';

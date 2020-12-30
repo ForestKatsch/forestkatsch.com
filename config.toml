@@ -1,6 +1,7 @@
 
 [site]
 title = "Forest Katsch"
+url = "https://beta-forestkatsch-com.netlify.com/"
 
 [content]
 path = "./content/"
