@@ -122,6 +122,10 @@ export default class ImageContentHandler extends TextContentHandler {
     return this.getMediaOutputPath(page, 'thumbnail');
   }
 
+  getCoverPath(page: Page): string {
+    return this.getMediaOutputPath(page, 'cover');
+  }
+
   getFilesystemMediaOutputPath(page: Page, variant?: string): string {
     return path.join(this.site.outputRoot, this.getMediaOutputPath(page, variant));
   }
@@ -199,8 +203,8 @@ export default class ImageContentHandler extends TextContentHandler {
     return html`
 <section class="page-listing-entry page-listing-entry--image page-listing-entry--media ${variant === 'listing-album' ? 'page-listing-entry--in-album' : ''}">
   <a class="page-listing-entry__media-wrapper plain ${variant === 'listing-album' ? '' : 'effect__lift effect__shine'} effect__frame"
-     title="Click to view ${page.meta.image.type}"
-     href="${listingPage.link(page.path)}">
+     title="Click to visit image page"
+     href="${listingPage.link(page)}">
     <img src="${imagePath}"
          class="content-media__media"
          width="${page.meta.image.width}"

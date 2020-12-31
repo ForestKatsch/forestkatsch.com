@@ -6,12 +6,13 @@ handler = 'album'
 
 tags = ['@featured', '@home', 'sn8', 'starship', 'rocket']
 
-#[album]
-#order = [
+publishDate = 2020-12-09T18:00:00-06:00
+
+[album]
+cover = 'launch'
+#pages = [
 #  'launch'
 #]
-
-publishDate = 2020-12-09T18:00:00-06:00
 
 [criteria.include]
 tags = ['@photo', 'sn8']

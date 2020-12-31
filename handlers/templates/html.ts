@@ -50,8 +50,8 @@ export function htmlPage({
     <meta name="author" content="Forest Katsch" />
     ${page.meta.summary ? html`<meta name="description" content="${page.meta.summary}" />` : ''}
     <meta name="keywords" content="${page.tags.filter((tag) => !tag.startsWith('@')).join(',')}" />
-    <meta name="theme-color" content="#38f" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#3388ff" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <link rel="stylesheet" href="${page.static('style.css')}" />
     <title>${title ?? page.meta.title}</title>

@@ -1,4 +1,6 @@
 
+import objectPath from 'https://cdn.skypack.dev/object-path';
+
 import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
 import {htmlPage} from './templates/html.ts';
@@ -19,6 +21,12 @@ export default class ListingContentHandler extends TextContentHandler {
   }
 
   pagesInListing(page: Page): Page[] {
+    let pages = objectPath.get(page.meta, 'pages');
+
+    if(pages) {
+      return pages.map((path) => page.site.getPageFrom(page, path));
+    }
+    
     return page.site.getPages(page.meta.criteria);
   }
 
@@ -34,9 +42,9 @@ ${homePages.map((p) => p.render('listing', page))}
 
   renderInfobox(page: Page): TemplateResult {
     return html`
-<section class="page-content__infobox text">
-  <h1>${markdownInline(page.meta.title)}</h1>
-  <div class="page-content__infobox-content">${markdown(page.contents)}</div>
+<section class="listing__infobox text">
+${this.options.home ? '' : html`<h1>${markdownInline(page.meta.title)}</h1>`}
+  <div class="listing__infobox-content">${markdown(page.contents)}</div>
 ${this.options.home ? this.renderHomeLinks(page) : ''}
 </section>
 `;
@@ -64,10 +72,35 @@ ${this.options.home ? this.renderHomeLinks(page) : ''}
 
     let homeHeader = html`
 <header class="home-header">
-  <img src="${page.static("identity/avatar-home.jpg")}"class="home-header__avatar" alt="An edited photograph of Forest wearing glasses, trying to look slightly mysterious, and failing." />
-  <span class="home-header__message">← This is me!</span>
+  <div class="home-header__info">
+    <img src="${page.static("identity/avatar-home.jpg")}"class="home-header__avatar" alt="An edited photograph of Forest wearing glasses, trying to look slightly mysterious, and failing." />
+    <span class="home-header__message">← Forest Katsch</span>
+  </div>
+  <div class="home-header__links">
+    <a href="${page.link('/feed')}">Feed</a>
+  </div>
 </header>
-`
+`;
+
+    let homeLinksMarkdown = `
+# **Email:** [hey@forestkatsch.com](mailto:hey@forestkatsch.com)
+
+# **Twitter:** [@ForestKatsch](https://twitter.com/ForestKatsch)
+
+***
+
+# **GitHub:** [github.com/ForestKatsch](https://github.com/ForestKatsch)
+
+# **ArtStation:** [artstation.com/forestkatsch](https://artstation.com/forestkatsch)
+
+# **LinkedIn:** [linkedin.com/in/forest-katsch](https://linkedin.com/in/forest-katsch)
+`;
+    let homeLinks = html`
+<div class="home-page-listing-message" id="personal-links">${markdown("Find me online:")}</div>
+<section class="home-profile-links">
+${markdown(homeLinksMarkdown)}
+</section>
+`;
 
     return htmlPage({
       page: page,
@@ -77,6 +110,7 @@ ${this.options.home ? this.renderHomeLinks(page) : ''}
 ${this.options.home ? homeHeader : pageHeader(page)}
 <main class="page-content page-content--listing infobox-style--${infoboxStyle}">
   ${this.renderInfobox(page)}
+${this.options.home ? homeLinks : ''}
 ${this.options.home ? html`<div class="home-page-listing-message" id="featured">${markdown("Here are some projects I'm proud of:")}</div>` : ''}
   <section class="page-listing">
   ${pages.map((p) => p.render('listing', page))}

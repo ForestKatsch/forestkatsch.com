@@ -3,6 +3,9 @@ title = "About Me"
 
 static = true
 
+[header]
+show = false
+
 +++
 
 # About Me

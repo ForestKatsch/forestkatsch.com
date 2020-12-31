@@ -3,7 +3,7 @@ import objectPath from 'https://cdn.skypack.dev/object-path';
 
 import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
-import {htmlPage} from './templates/html.ts';
+import {htmlPage, metaEmbed} from './templates/html.ts';
 import {pageHeader, pageFooter} from './templates/page.ts';
 import {markdown} from './templates/markdown.ts';
 
@@ -34,21 +34,35 @@ export default class ListingContentHandler extends TextContentHandler {
   }
 
   pagesInAlbum(page: Page): Page[] {
-    let order = objectPath.get(page.meta, 'album.order');
+    let pages = objectPath.get(page.meta, 'album.pages');
 
-    if(order) {
-      return order.map((path) => page.site.getPageFrom(page, path));
+    if(pages) {
+      return pages.map((path) => page.site.getPageFrom(page, path));
     }
     
     return page.site.getPages(page.meta.criteria).reverse();
   }
 
+  getCoverMediaPage(page: Page): Page {
+    if(objectPath.get(page.meta, 'album.cover')) {
+      return this.site.getPageFrom(page, page.meta.album.cover);
+    }
+
+    return this.pagesInAlbum(page)[0];
+  }
+
   renderListing(page: Page, variant: string, listingPage: Page): TemplateResult {
-    // Get up to 6 pages.
-    let mediaPages = this.mediaPagesInAlbum(page);
+    let coverMediaPage = this.getCoverMediaPage(page);
+
+    let mediaPages = this.mediaPagesInAlbum(page)
+      .filter((mediaPage) => coverMediaPage !== mediaPage);
+
+    mediaPages = [
+      coverMediaPage,
+      ...mediaPages
+    ];
 
     let mediaPageCount = mediaPages.length;
-    
     mediaPages = mediaPages.slice(0, 8).reverse();
 
     let mediaPageCountMore = mediaPageCount - mediaPages.length;
@@ -77,11 +91,14 @@ ${mediaPages.map((mediaPage) => html`
 
   renderPage(page: Page): TemplateResult {
     let pages = this.pagesInAlbum(page);
-    
+
+    let coverMedia = this.getCoverMediaPage(page);
+
     return htmlPage({
       page: page,
       
-      head: html``,
+      head: metaEmbed(page, coverMedia.link(coverMedia.handler.getCoverPath(coverMedia), true)),
+
       body: html`
 ${pageHeader(page)}
 <main class="page-content page-content--listing">
