@@ -1,7 +1,7 @@
 
 import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
-import {htmlPage} from './templates/html.ts';
+import {htmlPage, metaEmbed} from './templates/html.ts';
 import {pageHeader, pageFooter} from './templates/page.ts';
 import {markdown} from './templates/markdown.ts';
 
@@ -60,10 +60,19 @@ export default class MarkdownContentHandler extends TextContentHandler {
 ${this.site.getPageFrom(page, page.meta.cover).render('cover', page)}
 `;
     }
+
+    let coverImage = null;
+
+    if(page.meta.cover) {
+      let coverMedia = this.site.getPageFrom(page, page.meta.cover);
+      coverImage = coverMedia.link(coverMedia.handler.getCoverPath(coverMedia), true);
+    }
     
     return htmlPage({
       page: page,
       
+      head: metaEmbed(page, coverImage),
+
       body: html`
 ${pageHeader(page)}
 <main class="page-content">
