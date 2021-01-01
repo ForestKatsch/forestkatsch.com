@@ -217,6 +217,7 @@ export default class ImageContentHandler extends TextContentHandler {
      title="Click to visit image page"
      href="${listingPage.link(page)}">
     <img src="${imagePath}"
+         loading="lazy"
          class="content-media__media"
          width="${page.meta.image.width}"
          height="${page.meta.image.height}" />

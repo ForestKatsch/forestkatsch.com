@@ -1,6 +1,14 @@
 
 title = "Ford Transit Teardown"
 
+cover = "pristine"
+
+summary = """
+So. I bought a van.
+It's a 2017 Ford Transit, and now I need to return this van to a pristine, near-factory state; a blank canvas to build upon, if you will.
+Here's how I did it.
+"""
+
 publishDate = 2020-12-31T18:33:16-06:00
 
 tags = ["van", "ford-transit", "floor"]
@@ -10,8 +18,6 @@ So.
 I bought a van.
 
 It's a 2017 Ford Transit LWB (long wheelbase) medium roof (which equates to a cargo area about 12 feet deep and just under 6 feet tall.)
-
-![](pristine/pristine-listing.jpg)
 
 The first step in any conversion is returning the van to a pristine, near-factory state; a blank canvas, if you will.
 (No, I'm not going to be tearing it down like iFixit.)

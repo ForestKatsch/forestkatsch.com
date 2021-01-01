@@ -11,6 +11,9 @@ path = "./static"
 output = ""
 copy = true
 
+[handlers.strip-summary]
+handler = "./handlers/util/strip-summary.ts"
+
 [handlers.markdown]
 extensions = [".md"]
 handler = "./handlers/markdown.ts"
@@ -33,6 +36,8 @@ handler = "./handlers/image.ts"
 
 [transform]
 operations = [
+  "strip-summary",
+  
   "media-metadata-read",
   "media-copy",
   "media-compress",

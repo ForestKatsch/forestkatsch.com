@@ -1,5 +1,7 @@
 
 title = "Salsa Blueprint Font"
+summary = "I created a font based on my handwriting. Here's how I did it."
+
 category = "design"
 
 tags = ["font", "design"]
