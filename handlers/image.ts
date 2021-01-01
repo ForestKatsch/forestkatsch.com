@@ -26,15 +26,10 @@ async function copyNeeded(source: string, dest: string): Promise<boolean> {
     return true;
   }
 
-  if(sourceStat.birthtime > destStat.birthtime) {
-    return true;
-  }
+  sourceStat = await sourceStat;
+  destStat = await destStat;
 
   if(sourceStat.mtime > destStat.mtime) {
-    return true;
-  }
-
-  if(sourceStat.ctime > destStat.ctime) {
     return true;
   }
 
@@ -51,7 +46,7 @@ async function readExif(filename: string): Promise<ExifData> {
 }
 
 async function convert(source: string, dest: string, args: string = ''): Promise<void> {
-  if(!await copyNeeded(source, dest)) {
+  if(!(await copyNeeded(source, dest))) {
     return;
   }
   
@@ -95,12 +90,20 @@ export default class ImageContentHandler extends TextContentHandler {
     this.addRenderVariant('@page', this.renderPage);
     this.addRenderVariant('listing', this.renderListing);
     this.addRenderVariant('listing-album', this.renderListing);
+    this.addRenderVariant('cover', this.renderCover);
   }
 
   async _ingest(page: Page): Promise<void> {
-    await this.loadMetadataFile(page);
+    
+    try {
+      await this.loadMetadataFile(page);
+    } catch(err) {
+      page._meta.title = path.basename(page.path);
+      page._meta.tags = [];
+      // No big deal.
+    }
 
-    page._meta.tags.push('@image');
+    page.addTag('@image');
   }
 
   // Returns the output-relative media path.
@@ -138,33 +141,41 @@ export default class ImageContentHandler extends TextContentHandler {
     let exif: {[key: string]: any} = {};
     let exifMeta: {[key: string]: any} | null = null;
 
+    let imageType = 'image';
+
     try {
       exif = await readExif(page.absoluteContentFilename);
-      
-      exifMeta = {
-        camera: {
-          make: resolveCameraMake(exif.Make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
-          model: resolveCameraModel(exif.Model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
-        },
 
-        lens: {
-          model: exif.LensModel
-        },
+      if(!exif.ExposureTime) {
+        imageType = 'image';
+      } else {
+        imageType = 'photo';
+        
+        exifMeta = {
+          camera: {
+            make: resolveCameraMake(exif.Make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
+            model: resolveCameraModel(exif.Model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
+          },
 
-        capture: {
-          fstop: exif.FNumber,
-          exposure: exif.ExposureTime,
-          iso: exif.ISO,
-          focalLength: exif.FocalLength,
-          focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
-        }
-      };
+          lens: {
+            model: exif.LensModel
+          },
+
+          capture: {
+            fstop: exif.FNumber,
+            exposure: exif.ExposureTime,
+            iso: exif.ISO,
+            focalLength: exif.FocalLength,
+            focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
+          }
+        };
+      }
     } catch(err) {
       this.site.log.warn(`error while reading exif data in '${page.sourcePath}':`, err);
     }
 
     page._meta.image = _.merge(page.meta.image, {
-      type: 'photo',
+      type: imageType,
 
       width: exif ? exif.ExifImageWidth : 1,
       height: exif ? exif.ExifImageHeight : 1,
@@ -183,10 +194,10 @@ export default class ImageContentHandler extends TextContentHandler {
 
     // 'cover' image is a small-ish image used as the primary image on most places.
     // It can be shown full-width, so we need to keep it rather big, but we keep quality lowish.
-    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 100 -strip -interlace Plane');
+    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
 
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'listing'), 960, 720, '-quality 100 -strip -interlace Plane');
+    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
     
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
     await convert(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
@@ -219,8 +230,25 @@ export default class ImageContentHandler extends TextContentHandler {
 `;
   }
 
+  renderCover(page: Page, variant: string, listingPage: Page): TemplateResult {
+    let imagePath = listingPage.link(this.getMediaOutputPath(page, 'cover'));
+
+    return html`
+<section class="page-content__cover page-content__cover--image page-content__cover--image effect__frame">
+  <a class="page-content__cover-wrapper plain"
+     title="Click to visit image page"
+     href="${listingPage.link(page)}">
+    <img src="${imagePath}"
+         class="content-media__media"
+         width="${page.meta.image.width}"
+         height="${page.meta.image.height}" />
+  </a>
+</section>
+`;
+  }
+
   renderPage(page: Page): TemplateResult {
-    let details = '(No EXIF data detected in image)';
+    let details: TemplateResult = markdown(`(No EXIF data detected in image)`);
 
     if(page.meta.image.type === 'photo' && page.meta.image.exif) {
       let exif = page.meta.image.exif;
@@ -255,6 +283,8 @@ Taken with ${camera} and a ${exif.lens.model} lens
 
 **ISO**: ${exif.capture.iso}
 `);
+    } else {
+      details = null;
     }
 
     let imagePath = this.getMediaOutputPath(page);
@@ -308,7 +338,7 @@ ${pageHeader(page)}
     <div class="content-media__description text page-content__text">
       ${markdown(page.contents || page.meta.summary)}
     </div>
-    <div class="content-media__details text page-content__text"><hr/>${details}</div>
+${details ? html`<div class="content-media__details text page-content__text"><hr/>${details}</div>` : ''}
   </section>
 
   <script>${shareScript}</script>

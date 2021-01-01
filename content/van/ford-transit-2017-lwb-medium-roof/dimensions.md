@@ -1,7 +1,9 @@
 
 title = "Ford Transit 2017 LWB Medium Roof Dimensions"
-draft = true
+
 tags = ["van", "ford-transit"]
+
+category = "reference"
 +++
 
 # Floor

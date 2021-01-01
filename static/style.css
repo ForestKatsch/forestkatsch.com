@@ -106,6 +106,9 @@
   --infobox-text-primary: rgba(0, 0, 0, 0.85);
   --infobox-text-secondary: rgba(0, 0, 0, 0.58);
   --infobox-text-tertiary: rgba(0, 0, 0, 0.35);
+
+  --theme-primary: #38f;
+  --theme-art: hsl(260, 50%, 50%);
 }
 
 /* And apply the above themes. */
@@ -270,6 +273,12 @@ a:not(.plain):hover {
   content: '-';
   margin-right: 0.5em;
   display: inline;
+}
+
+.text img {
+  margin: 1rem 0;
+  width: 100%;
+  border-radius: var(--box-border-radius);
 }
 
 hr {
@@ -902,7 +911,7 @@ body[data-handler=image] {
 }
 
 .page-content.infobox-style--art {
-  --infobox-background: hsl(260, 50%, 50%);
+  --infobox-background: var(--theme-art);
   --infobox-border: var(--infobox-background);
   
   --infobox-text-primary: #fff;
@@ -1199,6 +1208,14 @@ body[data-handler=image] {
   --category-background: #000;
 }
   
+.page-listing-entry[data-category=reference] .page-listing-entry__footer-category {
+  --category-text: #d40;
+}
+
+.page-listing-entry[data-category=design] .page-listing-entry__footer-category {
+  --category-text: var(--theme-art);
+}
+  
 /* Listing item for a listing. INCEPTION BWOAAAH */
 
 .page-listing-entry--listing {
@@ -1356,3 +1373,12 @@ body[data-handler=image] {
 */
 }
 
+
+.page-content__cover {
+  margin-bottom: 2rem;
+  border-radius: var(--box-border-radius);
+  
+  box-shadow: 0 2px 6px 0 RGBA(0, 0, 0, 0.15);
+
+  overflow: hidden;
+}

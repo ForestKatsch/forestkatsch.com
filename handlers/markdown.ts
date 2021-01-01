@@ -53,10 +53,17 @@ export default class MarkdownContentHandler extends TextContentHandler {
   }
   
   renderPage(page: Page): TemplateResult {
+    let coverElement: TemplateResult = '';
+    
+    if(page.meta.cover) {
+      coverElement = html`
+${this.site.getPageFrom(page, page.meta.cover).render('cover', page)}
+`;
+    }
+    
     return htmlPage({
       page: page,
       
-      head: html``,
       body: html`
 ${pageHeader(page)}
 <main class="page-content">
@@ -66,6 +73,7 @@ ${page.meta.header.show ? html`
 ${headerPublishDate(page)}
   </header>
   ` : ''}
+  ${coverElement}
   <section class="page-content__text text">${markdown(page.contents)}</section>
 </main>
 ${pageFooter(page)}
