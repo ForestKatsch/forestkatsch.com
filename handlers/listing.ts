@@ -24,18 +24,18 @@ export default class ListingContentHandler extends TextContentHandler {
     let pages = objectPath.get(page.meta, 'pages');
 
     if(pages) {
-      return pages.map((path) => page.site.getPageFrom(page, path));
+      return pages.map((path: string) => page.site.getPageFrom(page, path));
     }
     
     return page.site.getPages(page.meta.criteria);
   }
 
   renderHomeLinks(page: Page): TemplateResult {
-    let homePages = page.meta.infobox.links.map((path) => page.site.getPage(path));
+    let homePages = page.meta.infobox.links.map((path: string) => page.site.getPage(path));
 
     return html`
 <section class="infobox-home-links">
-${homePages.map((p) => p.render('listing', page))}
+${homePages.map((p: Page) => p.render('listing', page))}
 </section>
 `;
   }
@@ -57,7 +57,7 @@ ${this.options.home ? this.renderHomeLinks(page) : ''}
      href="${listingPage.link(page.path)}">
     <header class="page-listing-entry__header">
       <span class="page-listing-entry__header-title">${page.meta.title}</span>
-      ${listingPublishDate(page, 'page-listing-entry__header-date', '')}
+      ${listingPublishDate(page)}
     </header>
     <section class="page-listing-entry__caption">${markdown(page.meta.summary)}</section>
   </a>

@@ -29,10 +29,10 @@ ${imageUrl ? html`<meta property="og:image" content="${imageUrl}" />` : ''}
 }
 
 export function metaEmbed(page: Page, imageUrl?: string): TemplateResult {
-  return [
-    openGraphMetaTags(page, imageUrl),
-    twitterCardMetaTags(page, imageUrl),
-  ]
+  return html`
+${openGraphMetaTags(page, imageUrl)}
+${twitterCardMetaTags(page, imageUrl)}
+  `
 }
 
 export function htmlPage({
@@ -47,6 +47,12 @@ export function htmlPage({
 <html>
   <head>
     <meta charset="utf-8">
+
+    <link rel="icon" href="${page.link('/favicon.ico')}">
+    <link rel="icon" href="${page.link('/icon.svg')}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="${page.link('/apple-touch-icon.png')}">
+    <link rel="manifest" href="${page.link('/manifest.webmanifest')}">
+
     <meta name="author" content="Forest Katsch" />
     ${page.meta.summary ? html`<meta name="description" content="${page.meta.summary}" />` : ''}
     <meta name="keywords" content="${page.tags.filter((tag) => !tag.startsWith('@')).join(',')}" />

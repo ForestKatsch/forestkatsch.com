@@ -32,7 +32,7 @@ export function pageFooter(page: Page): TemplateResult {
     <span class="page-footer__contact"><a href="${page.link('/contact')}">Contact me</a></span>
   </div>
   <div class="page-footer__container horizontal secondary">
-    <span class="page-footer__generation">This page was generated from <code>${page.contentFilename}</code>
+    <span class="page-footer__generation">This page was generated from <code>${page.contentPath ? page.contentPath : '@internal'}</code>
   by <a href="${page.link('/software/apogee')}">Apogee SSG</a> on <code>${new Date().toISOString()}</code></span>
     <span class="page-footer__tags">${page.meta.tags.join(' • ')}</span>
   </div>

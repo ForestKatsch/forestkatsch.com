@@ -17,23 +17,23 @@ import {markdown} from './templates/markdown.ts';
 type ExifData = any;
 
 async function copyNeeded(source: string, dest: string): Promise<boolean> {
-  let sourceStat = Deno.stat(source);
-  let destStat = Deno.stat(dest);
-
   try {
-    await Promise.all([sourceStat, destStat]);
+    let sourceStat = await Deno.stat(source);
+    let destStat = await Deno.stat(dest);
+    
+    if(!sourceStat.mtime || !destStat.mtime) {
+      return true;
+    }
+
+    if(sourceStat.mtime > destStat.mtime) {
+      return true;
+    }
+
+    return false;
   } catch(err) {
     return true;
   }
 
-  sourceStat = await sourceStat;
-  destStat = await destStat;
-
-  if(sourceStat.mtime > destStat.mtime) {
-    return true;
-  }
-
-  return false;
 }
 
 async function readExif(filename: string): Promise<ExifData> {
@@ -109,7 +109,7 @@ export default class ImageContentHandler extends TextContentHandler {
   // Returns the output-relative media path.
   getMediaOutputPath(page: Page, variant?: string): string {
     let p = path.parse(page.path);
-    let extension = path.extname(page.contentFilename);
+    let extension = path.extname(page.contentPath);
 
     // Always export jpg for images other than the original.
     if(variant) {
@@ -144,7 +144,7 @@ export default class ImageContentHandler extends TextContentHandler {
     let imageType = 'image';
 
     try {
-      exif = await readExif(page.absoluteContentFilename);
+      exif = await readExif(page.contentFilename);
 
       if(!exif.ExposureTime) {
         imageType = 'image';
@@ -190,17 +190,17 @@ export default class ImageContentHandler extends TextContentHandler {
 
     await ensureDir(path.dirname(this.getFilesystemMediaOutputPath(page)));
     
-    await copy(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page), {overwrite: true});
+    await copy(page.contentFilename, this.getFilesystemMediaOutputPath(page), {overwrite: true});
 
     // 'cover' image is a small-ish image used as the primary image on most places.
     // It can be shown full-width, so we need to keep it rather big, but we keep quality lowish.
-    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
+    await convertResize(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
 
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convertResize(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
+    await convertResize(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
     
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convert(page.absoluteContentFilename, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
+    await convert(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
   }
   
   // Called with each content file we're supposed to handle.

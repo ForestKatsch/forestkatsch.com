@@ -51,7 +51,7 @@
   /* Font stacks. */
   --display-font-family: 'Salsa Blueprint', -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   --body-font-family: var(--display-font-family);
-  --long-form-font-family: 'Literata', sans-serif;
+  --longform-font-family: 'Literata', sans-serif;
   
   --mono-font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
@@ -109,6 +109,7 @@
 
   --theme-primary: #38f;
   --theme-art: hsl(260, 50%, 50%);
+  --theme-van: hsl(200, 50%, 50%);
 }
 
 /* And apply the above themes. */
@@ -1162,17 +1163,17 @@ body[data-handler=image] {
 }
 
 /* Artfully scattered images. */
-.page-listing-entry__album-preview .preview:nth-child(0)  { transform: rotate(4deg) }
+.page-listing-entry__album-preview .preview:nth-child(0)  { transform: rotate(3.5deg) }
 .page-listing-entry__album-preview .preview:nth-child(1)  { transform: rotate(-2deg) }
 .page-listing-entry__album-preview .preview:nth-child(2)  { transform: rotate(3deg) }
 .page-listing-entry__album-preview .preview:nth-child(3)  { transform: rotate(-4deg) }
-.page-listing-entry__album-preview .preview:nth-child(4)  { transform: rotate(-2deg) }
-.page-listing-entry__album-preview .preview:nth-child(5)  { transform: rotate(3deg) }
-.page-listing-entry__album-preview .preview:nth-child(6)  { transform: rotate(-1deg) }
-.page-listing-entry__album-preview .preview:nth-child(7)  { transform: rotate(-3deg) }
-.page-listing-entry__album-preview .preview:nth-child(8)  { transform: rotate(4deg) }
-.page-listing-entry__album-preview .preview:nth-child(9)  { transform: rotate(3deg) }
-.page-listing-entry__album-preview .preview:nth-child(10) { transform: rotate(-3deg) }
+.page-listing-entry__album-preview .preview:nth-child(4)  { transform: rotate(1.2deg) }
+.page-listing-entry__album-preview .preview:nth-child(5)  { transform: rotate(-3deg) }
+.page-listing-entry__album-preview .preview:nth-child(6)  { transform: rotate(1.8deg) }
+.page-listing-entry__album-preview .preview:nth-child(7)  { transform: rotate(-2.8deg) }
+.page-listing-entry__album-preview .preview:nth-child(8)  { transform: rotate(2deg) }
+.page-listing-entry__album-preview .preview:nth-child(9)  { transform: rotate(-4deg) }
+.page-listing-entry__album-preview .preview:nth-child(10) { transform: rotate(-2.5deg) }
 .page-listing-entry__album-preview .preview:nth-child(11) { transform: rotate(1deg) }
 
 .page-listing-entry--text {
@@ -1214,6 +1215,10 @@ body[data-handler=image] {
 
 .page-listing-entry[data-category=design] .page-listing-entry__footer-category {
   --category-text: var(--theme-art);
+}
+  
+.page-listing-entry[data-category=van] .page-listing-entry__footer-category {
+  --category-text: var(--theme-van);
 }
   
 /* Listing item for a listing. INCEPTION BWOAAAH */
@@ -1373,7 +1378,6 @@ body[data-handler=image] {
 */
 }
 
-
 .page-content__cover {
   margin-bottom: 2rem;
   border-radius: var(--box-border-radius);
@@ -1381,4 +1385,15 @@ body[data-handler=image] {
   box-shadow: 0 2px 6px 0 RGBA(0, 0, 0, 0.15);
 
   overflow: hidden;
+}
+
+.page-content__longform .page-content__text {
+  font-family: var(--longform-font-family);
+}
+
+.page-content__longform .page-content__text > p,
+.page-content__longform .page-content__text > ul,
+.page-content__longform .page-content__text > ol {
+  font-size: 0.8em;
+  line-height: 1.6em;
 }

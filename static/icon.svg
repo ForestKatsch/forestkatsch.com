@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-64</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3388FF" offset="0%"></stop>
+            <stop stop-color="#1067FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon-64" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M57,12 L42,32 L57,52 L47,52 L38,40 C36,37.3333333 33,36 29,36 L47,12 L57,12 Z M26,28 L20,36 L10,36 L10,28 L26,28 Z M37,12 L31,20 L10,20 L10,12 L37,12 Z" id="Shape" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+    </g>
+</svg>

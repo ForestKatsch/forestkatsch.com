@@ -1,6 +1,8 @@
 
 import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
 
+import ImageContentHandler from './image.ts';
+
 import {htmlPage, metaEmbed} from './templates/html.ts';
 import {pageHeader, pageFooter} from './templates/page.ts';
 import {markdown} from './templates/markdown.ts';
@@ -61,11 +63,11 @@ ${this.site.getPageFrom(page, page.meta.cover).render('cover', page)}
 `;
     }
 
-    let coverImage = null;
+    let coverImage: string | undefined;
 
     if(page.meta.cover) {
       let coverMedia = this.site.getPageFrom(page, page.meta.cover);
-      coverImage = coverMedia.link(coverMedia.handler.getCoverPath(coverMedia), true);
+      coverImage = coverMedia.link((coverMedia.handler as ImageContentHandler).getCoverPath(coverMedia), true);
     }
     
     return htmlPage({
@@ -75,7 +77,7 @@ ${this.site.getPageFrom(page, page.meta.cover).render('cover', page)}
 
       body: html`
 ${pageHeader(page)}
-<main class="page-content">
+<main class="page-content page-content--markdown ${page.meta.longform ? 'page-content__longform' : ''}">
 ${page.meta.header.show ? html`
   <header class="page-content__header">
     <h1 class="page-content__header-title">${page.meta.title}</h1>

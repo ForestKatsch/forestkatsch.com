@@ -9,10 +9,12 @@ import {markdown} from './templates/markdown.ts';
 
 import {headerPublishDate, listingPublishDate} from './templates/date.ts';
 
+import ImageContentHandler from './image.ts';
+
 export default class ListingContentHandler extends TextContentHandler {
 
   async register() {
-    this.addTransformOperation('album-reference', (page) => {
+    this.addTransformOperation('album-reference', async (page: Page): Promise<any> => {
       this.mediaPagesInAlbum(page)
         .forEach((imagePage) => {
           imagePage.addTag('@in-album');
@@ -37,7 +39,7 @@ export default class ListingContentHandler extends TextContentHandler {
     let pages = objectPath.get(page.meta, 'album.pages');
 
     if(pages) {
-      return pages.map((path) => page.site.getPageFrom(page, path));
+      return pages.map((path: string) => page.site.getPageFrom(page, path));
     }
     
     return page.site.getPages(page.meta.criteria).reverse();
@@ -81,7 +83,7 @@ ${mediaPageCountMore > 0 ? html`
       <div class="preview preview-more"><span class="text">+${mediaPageCountMore}</span></div>
       ` : ''}
 ${mediaPages.map((mediaPage) => html`
-      <img class="preview" src="${listingPage.link(mediaPage.handler.getThumbnailPath(mediaPage))}"
+      <img class="preview" src="${listingPage.link((mediaPage.handler as ImageContentHandler).getThumbnailPath(mediaPage))}"
                loading="lazy"/>
 `)}
     </div>
@@ -98,7 +100,7 @@ ${mediaPages.map((mediaPage) => html`
     return htmlPage({
       page: page,
       
-      head: metaEmbed(page, coverMedia.link(coverMedia.handler.getCoverPath(coverMedia), true)),
+      head: metaEmbed(page, coverMedia.link((coverMedia.handler as ImageContentHandler).getCoverPath(coverMedia), true)),
 
       body: html`
 ${pageHeader(page)}

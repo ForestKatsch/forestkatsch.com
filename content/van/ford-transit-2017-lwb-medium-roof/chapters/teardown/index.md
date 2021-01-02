@@ -3,6 +3,8 @@ title = "Ford Transit Teardown"
 
 cover = "pristine"
 
+category = "van"
+
 summary = """
 So. I bought a van.
 It's a 2017 Ford Transit, and now I need to return this van to a pristine, near-factory state; a blank canvas to build upon, if you will.
@@ -57,8 +59,11 @@ I found that a lot of the wiring loom clips were either broken or missing, leadi
 The factory clips snap into the frame through two rectangular holes, one above the other.
 I decided to make a 3D-printable clip that could snap into the same holes to secure the loom.
 
-(For the curious: the top hole is 17mm wide, the bottom hole is 9mm wide, and both holes are 9mm tall. There's an inside radius of around 1.5mm, and the metal between the holes is 17mm edge-to-edge.)
+(For the curious: the top hole is 17mm wide, the bottom hole is 9mm wide, and both holes are 9mm tall.
+There's an inside radius of around 1mm, and the metal between the holes is 17mm edge-to-edge.)
 
 ![](wiring-loom-clip-detail/wiring-loom-clip-detail-listing.jpg)
+
+So I designed a 3D-printed piece.
 
 An internal slot is designed to hold a 4mm-wide ziptie.
