@@ -16,8 +16,11 @@ export default class ListingContentHandler extends TextContentHandler {
   async register() {
     this.addTransformOperation('album-reference', async (page: Page): Promise<any> => {
       this.mediaPagesInAlbum(page)
-        .forEach((imagePage) => {
-          imagePage.addTag('@in-album');
+        .forEach((mediaPage) => {
+          if(!page.hasPublishDate && mediaPage.hasPublishDate) {
+            page._meta.publishDate = mediaPage.meta.publishDate;
+          }
+          mediaPage.addTag('@in-album');
         });
     });
     
@@ -41,8 +44,16 @@ export default class ListingContentHandler extends TextContentHandler {
     if(pages) {
       return pages.map((path: string) => page.site.getPageFrom(page, path));
     }
-    
-    return page.site.getPages(page.meta.criteria).reverse();
+
+    let mediaPages = page.site.getPages(page.meta.criteria).reverse();
+
+    if(mediaPages.length === 0) {
+      this.site.log.error(`no media in album '${page.sourcePath}'`);
+    }
+
+    //console.log(mediaPages.map((page) => page.path));
+
+    return mediaPages;
   }
 
   getCoverMediaPage(page: Page): Page {
@@ -59,10 +70,12 @@ export default class ListingContentHandler extends TextContentHandler {
     let mediaPages = this.mediaPagesInAlbum(page)
       .filter((mediaPage) => coverMediaPage !== mediaPage);
 
-    mediaPages = [
-      coverMediaPage,
-      ...mediaPages
-    ];
+    if(coverMediaPage) {
+      mediaPages = [
+        coverMediaPage,
+        ...mediaPages
+      ];
+    }
 
     let mediaPageCount = mediaPages.length;
     mediaPages = mediaPages.slice(0, 8).reverse();

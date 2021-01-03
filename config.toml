@@ -31,7 +31,7 @@ home = true
 handler = "./handlers/album.ts"
 
 [handlers.image]
-extensions = [".jpg", ".png"]
+extensions = [".jpg", ".png", ".jpeg"]
 handler = "./handlers/image.ts"
 
 [transform]

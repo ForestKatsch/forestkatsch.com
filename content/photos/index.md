@@ -8,6 +8,7 @@ style="photos"
 
 [criteria.include]
 tags = ['@photo', '@album']
+allTags = false
 
 [criteria.exclude]
 tags = ['@in-album']

@@ -259,7 +259,7 @@ a:not(.plain):hover {
 .text ul,
 .text ol {
   margin: 1em 0;
-  margin-left: 1.5em;
+  margin-left: 2.5em;
 }
 
 .text ul li {
@@ -270,10 +270,8 @@ a:not(.plain):hover {
   margin-top: 0.6em;
 }
 
-.text ul li::before {
-  content: '-';
-  margin-right: 0.5em;
-  display: inline;
+.text ul li::marker{
+  content: '- ';
 }
 
 .text img {

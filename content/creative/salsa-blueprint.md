@@ -41,6 +41,19 @@ The font is a work-in-progress, and I'll probably revisit it over time to fix up
 Several ligatures are implemented, including fi, ffi, fl, ffl, ff, and tt.
 These can be more difficult to design than first meets the eye, but they're pretty much a necessity in any serious font.
 
+# Todo
+
+There are many things I could improve in my font:
+
+* More typographic ligatures (notably 'Fi' and 'Fl', but 'll', 'rr', 'ss' and others are also good candidates for new ligatures.)
+* Alternate glyphs.
+  Right now, every character only has a single glyph.
+  Adding more alternate glyphs will make text appear more natural.
+* More characters.
+  I'm missing most mathematical characters, as well as anything other than English letters and numbers.
+* Better kerning.
+  I've only done a casual kerning pass on the more common combinations, so you might ocassionally see some poor kerning.
+
 # License
 
 Salsa Blueprint is made available under the [SIL Open Font License](https://en.wikipedia.org/wiki/SIL_Open_Font_License).

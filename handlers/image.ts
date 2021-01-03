@@ -91,12 +91,18 @@ export default class ImageContentHandler extends TextContentHandler {
     this.addRenderVariant('listing', this.renderListing);
     this.addRenderVariant('listing-album', this.renderListing);
     this.addRenderVariant('cover', this.renderCover);
+
+    this.meta.static = true;
   }
 
   async _ingest(page: Page): Promise<void> {
     
     try {
       await this.loadMetadataFile(page);
+      
+      if(page._meta.static === undefined) {
+        page._meta.static = false;
+      }
     } catch(err) {
       page._meta.title = path.basename(page.path);
       page._meta.tags = [];
@@ -135,7 +141,6 @@ export default class ImageContentHandler extends TextContentHandler {
 
   async mediaReadExif(page: Page): Promise<void> {
     page.addTag('@photo');
-    page.addTag('@image');
     page.addTag('@media');
 
     let exif: {[key: string]: any} = {};
@@ -172,6 +177,10 @@ export default class ImageContentHandler extends TextContentHandler {
       }
     } catch(err) {
       this.site.log.warn(`error while reading exif data in '${page.sourcePath}':`, err);
+    }
+
+    if(page.meta.publishDate < new Date(3600)) {
+      page._meta.publishDate = exif.DateTimeOriginal;
     }
 
     page._meta.image = _.merge(page.meta.image, {
