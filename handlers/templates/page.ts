@@ -11,8 +11,8 @@ export function pageHeader(page: Page): TemplateResult {
     <span class="page-header__home-message">Hi, I'm Forest!</span>
   </a>
   <div class="page-header__links">
-    <a href="${page.link('/feed')}">Feed</a>
-    <a href="${page.link('/#featured')}" class="featured">Featured Projects</a>
+    <!--<a href="${page.link('/feed')}">Feed</a>-->
+    <a href="${page.link('/#featured')}" class="featured">See my Featured Projects</a>
   </div>
 </header>
 `;
