@@ -2,6 +2,7 @@ title = 'Forest Katsch'
 handler = "home"
 
 pages = [
+  '/creative/rocket-exhaust-vfx',
   '/photos/starship/sn8',
   '/software/apogee',
   '/software/vertex-oven',

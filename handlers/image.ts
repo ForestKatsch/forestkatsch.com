@@ -45,6 +45,25 @@ async function readExif(filename: string): Promise<ExifData> {
   }
 }
 
+async function getImageSize(filename: string): Promise<number[]> {
+  try {
+    const results = new TextDecoder().decode(await Deno.run({
+      cmd: ['file', filename],
+      stdout: 'piped',
+    }).output());
+    
+    let size = results.match(/, ([0-9]+)x([0-9]+)/);
+
+    if(!size) {
+      throw new Error(`no image size found in 'file' output`);
+    }
+
+    return [parseInt(size[1]), parseInt(size[2])];
+  } catch(err) {
+    throw new ApogeeError(`cannot read image size from '${filename}'`, err);
+  }
+}
+
 async function convert(source: string, dest: string, args: string = ''): Promise<void> {
   if(!(await copyNeeded(source, dest))) {
     return;
@@ -89,6 +108,7 @@ export default class ImageContentHandler extends TextContentHandler {
     
     this.addRenderVariant('@page', this.renderPage);
     this.addRenderVariant('listing', this.renderListing);
+    this.addRenderVariant('inline', this.renderInline);
     this.addRenderVariant('listing-album', this.renderListing);
     this.addRenderVariant('cover', this.renderCover);
 
@@ -151,7 +171,9 @@ export default class ImageContentHandler extends TextContentHandler {
     try {
       exif = await readExif(page.contentFilename);
 
-      if(!exif.ExposureTime) {
+      if(!exif) {
+        // Do nothing if the exif is null.
+      } else  if(!exif.ExposureTime) {
         imageType = 'image';
       } else {
         imageType = 'photo';
@@ -174,20 +196,27 @@ export default class ImageContentHandler extends TextContentHandler {
             focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
           }
         };
+        
+        if(page.meta.publishDate < new Date(3600)) {
+          page._meta.publishDate = exif.DateTimeOriginal;
+        }
+        
       }
     } catch(err) {
       this.site.log.warn(`error while reading exif data in '${page.sourcePath}':`, err);
     }
 
-    if(page.meta.publishDate < new Date(3600)) {
-      page._meta.publishDate = exif.DateTimeOriginal;
+    let imageSize = [exif ? exif.ExifImageWidth : 0, exif ? exif.ExifImageHeight : 0];
+
+    if(!exif) {
+      imageSize = await getImageSize(page.contentFilename);
     }
 
     page._meta.image = _.merge(page.meta.image, {
       type: imageType,
 
-      width: exif ? exif.ExifImageWidth : 1,
-      height: exif ? exif.ExifImageHeight : 1,
+      width: imageSize[0],
+      height: imageSize[1],
 
       exif: exifMeta
     });
@@ -211,7 +240,24 @@ export default class ImageContentHandler extends TextContentHandler {
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
     await convert(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
   }
-  
+
+  // Returns `true` if the image has no useful information, and the image can be linked to directly.
+  shouldBeDirectLink(page: Page): boolean {
+    if((page.meta.static || !page.hasPublishDate || !page.title) && !page.meta.summary) {
+      return true;
+    }
+
+    return false;
+  }
+
+  imageLink(page: Page): string {
+    if(this.shouldBeDirectLink(page)) {
+      return this.getCoverPath(page);
+    }
+
+    return page.path;
+  }
+
   // Called with each content file we're supposed to handle.
   addContent(filename: string) {
     this.site.createPageFromFilename(filename, this);
@@ -219,6 +265,8 @@ export default class ImageContentHandler extends TextContentHandler {
 
   renderListing(page: Page, variant: string, listingPage: Page): TemplateResult {
     let imagePath = listingPage.link(this.getMediaOutputPath(page, 'listing'));
+
+    // We always want to go to the page from a listing, never the image direct link.
 
     return html`
 <section class="page-listing-entry page-listing-entry--image page-listing-entry--media ${variant === 'listing-album' ? 'page-listing-entry--in-album' : ''}">
@@ -240,6 +288,22 @@ export default class ImageContentHandler extends TextContentHandler {
 `;
   }
 
+  renderInline(page: Page, variant: string, listingPage: Page): TemplateResult {
+    let imagePath = listingPage.link(this.getMediaOutputPath(page, 'listing'));
+
+    return html`
+<a class="inline-image plain"
+   title="Click to visit image page"
+   href="${listingPage.link(this.imageLink(page))}">
+  <img src="${imagePath}"
+       loading="lazy"
+       class="inline-image__image"
+       width="${page.meta.image.width}"
+       height="${page.meta.image.height}" />
+</a>
+`;
+  }
+
   renderCover(page: Page, variant: string, listingPage: Page): TemplateResult {
     let imagePath = listingPage.link(this.getMediaOutputPath(page, 'cover'));
 
@@ -247,7 +311,7 @@ export default class ImageContentHandler extends TextContentHandler {
 <section class="page-content__cover page-content__cover--image page-content__cover--image effect__frame">
   <a class="page-content__cover-wrapper plain"
      title="Click to visit image page"
-     href="${listingPage.link(page)}">
+     href="${listingPage.link(this.imageLink(page))}">
     <img src="${imagePath}"
          class="content-media__media"
          width="${page.meta.image.width}"

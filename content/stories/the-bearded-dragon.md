@@ -8,21 +8,17 @@ publishDate = 2018-11-26T00:00:00Z
 tags = ['story', 'fiction', 'writing-prompt']
 +++
 
-<!--{{% note title="Note" %}}Based on a [writing
+<!--{-{% note title="Note" %}}Based on a [writing
 prompt](https://www.reddit.com/r/WritingPrompts/comments/a09lmf/wp_your_parents_got_you_a_pet_lizard_for_your/)
 from [u/almighty_smiley](https://www.reddit.com/user/almighty_smiley).{{%/
 note %}}-->
 
-I didn't want to move to Riverside.I didn't want to say goodbye to my
-childhood home, to the friends I'd made, the fun we had. I even began to think
-fondly of Mrs. Roberts, the history teacher that hated the stunts my friends
-and I pulled in her classroom. But my father told us that his promotion to
-manager of the new Riverside branch would give him a substantial raise, and he
-was dead-set on accepting. I think my mother understood how hard it was for
-me; she'd told me about her own childhood, and how she had never made any
-friends because her father was relocated to a different base almost once a
-year. But she and my father had already decided, and all my pleas fell on deaf
-ears.
+I didn't want to move to Riverside.
+I didn't want to say goodbye to my childhood home, to the friends I'd made, the fun we had.
+I even began to think fondly of Mrs. Roberts, the history teacher that hated the stunts my friends and I pulled in her classroom.
+But my father told us that his promotion to manager of the new Riverside branch would give him a substantial raise, and he was dead-set on accepting.
+I think my mother understood how hard it was for me; she'd told me about her own childhood, and how she had never made any friends because her father was relocated to a different base almost once a year.
+But she and my father had already decided, and all my pleas fell on deaf ears.
 
 At Riverside, I had no friends. When school started, I didn't make any
 friends, either. I was the new kid, the person that nobody knew. I wasn't

@@ -1,5 +1,5 @@
 
-import {Page, TextContentHandler, html, TemplateResult} from '../deps.ts';
+import {templateToString, Page, TextContentHandler, html, TemplateResult, ApogeeError} from '../deps.ts';
 
 import ImageContentHandler from './image.ts';
 
@@ -11,7 +11,11 @@ import {listingPublishDate, headerPublishDate} from './templates/date.ts';
 
 export default class MarkdownContentHandler extends TextContentHandler {
 
+  interpolators: {[key: string]: Function} = {};
+
   async register() {
+    this.addTransformOperation('content-interpolation', this.contentInterpolation);
+    
     // Tell Apogee how we want to be rendered.
     this.addRenderVariant('@page', this.renderPage);
     
@@ -20,6 +24,33 @@ export default class MarkdownContentHandler extends TextContentHandler {
     this.meta.header = {
       show: true
     };
+
+    // This is how interpolators are defined.
+    /*
+    this.interpolators['random'] = (): number => {
+      return Math.random();
+    };
+    */
+    
+    this.interpolators['media'] = (page: Page, mediaPath: string): TemplateResult => {
+      let mediaPage = page.site.getPageFrom(page, mediaPath);
+      return mediaPage.render('inline', page);
+    };
+  }
+
+  // Replaces `{{foobar}}` with the JS-evaluated value of `foobar`.
+  // The variable 'page' refers to the current page.
+  async contentInterpolation(page: Page): Promise<any> {
+    page.contents = page.contents.replace(/\{\{(.*?)\}\}/g, (match: string, group: string) => {
+      try {
+        let result = Function('page', 'site', '$', '"use strict";return (' + group + ')')(page, this.site, this.interpolators);
+
+        // Properly handle template strings here. It's kind of hacky, but it's better than ignoring them (and inserting [object Object] into the strings.)
+        return templateToString(result);
+      } catch(err) {
+        throw new ApogeeError(`cannot execute code '${group}' for page '${page.sourcePath}'`, err);
+      }
+    });
   }
 
   renderListingAlbum(page: Page, variant: string, listingPage: Page): TemplateResult {
@@ -29,6 +60,17 @@ export default class MarkdownContentHandler extends TextContentHandler {
   }
   
   renderListing(page: Page, variant: string, listingPage: Page): TemplateResult {
+
+    let cover: TemplateResult = '';
+
+    if(page.meta.cover) {
+      let coverMedia = this.site.getPageFrom(page, page.meta.cover);
+      let coverImage = listingPage.link((coverMedia.handler as ImageContentHandler).getCoverPath(coverMedia));
+      
+      cover = html`
+<img class="page-listing-entry__image" src="${coverImage}" />
+`;
+    }
       
     return html`
 <section class="page-listing-entry page-listing-entry--text effect__lift effect__shine effect__lift--subtle" data-category="${page.meta.category}">
@@ -38,6 +80,7 @@ export default class MarkdownContentHandler extends TextContentHandler {
       <span class="page-listing-entry__header-title">${page.meta.title}</span>
       ${listingPublishDate(page)}
     </header>
+${cover}
     <div class="page-listing-entry__caption">${markdown(page.meta.summary)}</div>
     <div class="page-listing-entry__footer">
       <span class="page-listing-entry__footer-category">${page.meta.category}</span>

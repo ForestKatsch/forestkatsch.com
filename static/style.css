@@ -1202,9 +1202,23 @@ body[data-handler=image] {
   text-decoration: underline;
 }
 
+.page-listing-entry--text .page-listing-entry__image {
+  display: block;
+  width: calc(100% - var(--horizontal-padding) * 2);
+  height: auto;
+  margin: 0.4rem var(--horizontal-padding);
+  border-radius: var(--box-border-radius);
+  max-height: 12rem;
+  object-fit: cover;
+}
+ 
 .page-listing-entry[data-category=software] .page-listing-entry__footer-category {
   --category-text: #3f8;
   --category-background: #000;
+}
+  
+.page-listing-entry[data-category=creative] .page-listing-entry__footer-category {
+  --category-text: #9e228d;
 }
   
 .page-listing-entry[data-category=reference] .page-listing-entry__footer-category {
@@ -1377,7 +1391,7 @@ body[data-handler=image] {
 }
 
 .page-content__cover {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   border-radius: var(--box-border-radius);
   
   box-shadow: 0 2px 6px 0 RGBA(0, 0, 0, 0.15);
@@ -1394,4 +1408,16 @@ body[data-handler=image] {
 .page-content__longform .page-content__text > ol {
   font-size: 0.8em;
   line-height: 1.6em;
+}
+
+/* Inline image in articles. */
+
+.inline-image {
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.inline-image__image {
+  border-radius: var(--box-border-radius);
+  height: auto;
 }

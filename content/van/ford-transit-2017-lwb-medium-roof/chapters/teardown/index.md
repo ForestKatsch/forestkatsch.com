@@ -114,3 +114,11 @@ This was important, because a lot of the fine debris was metal filings produced 
 
 Once the floor was free of debris, I wet the areas with surface rust and scrubbed it off with a scouring pad, then let it air-dry.
 This left many small areas of bare metal which will need to be covered up to prevent further rusting.
+
+# Painting Exposed Metal
+
+Now, I need to cover all of the exposed bare metal on the floor.
+I used a quart of Rustoleum gloss-white paint for this, along with sponge brushes (which I incorrectly thought would provide a better finish than bristled brushes.)
+I'm not worried about color-matching, because all of the metal inside will be completely covered up with the interior of the van.
+I wiped the floor clean and let it air-dry, then wiped it down with isopropyl alcohol to get rid of oil and grease.
+Along the way, I also painted some spots on the walls that had been scraped clear of paint.

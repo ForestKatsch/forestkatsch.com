@@ -46,6 +46,8 @@ operations = [
   "album-reference",
   
   "tag-generate",
+
+  "content-interpolation",
   
   "@render",
 ]
