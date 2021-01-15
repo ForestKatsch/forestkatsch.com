@@ -83,7 +83,7 @@ export default class MarkdownContentHandler extends TextContentHandler {
 ${cover}
     <div class="page-listing-entry__caption">${markdown(page.meta.summary)}</div>
     <div class="page-listing-entry__footer">
-      <span class="page-listing-entry__footer-category">${page.meta.category}</span>
+      <span class="page-listing-entry__footer-category">in <span class="category">${page.meta.category}</span></span>
       <a class="plain page-listing-entry__read-more">Read more →</a>
     </div>
   </a>
@@ -112,6 +112,12 @@ ${this.site.getPageFrom(page, page.meta.cover).render('cover', page)}
       let coverMedia = this.site.getPageFrom(page, page.meta.cover);
       coverImage = coverMedia.link((coverMedia.handler as ImageContentHandler).getCoverPath(coverMedia), true);
     }
+
+    let postedIn = html``;
+
+    if(page.meta.category) {
+      postedIn = html`<span class="page-content__header-category">filed in <a href="/category/${page.meta.category}">${page.meta.category}</a></span>`;
+    }
     
     return htmlPage({
       page: page,
@@ -123,7 +129,7 @@ ${pageHeader(page)}
 <main class="page-content page-content--markdown ${page.meta.longform ? 'page-content__longform' : ''}">
 ${page.meta.header.show ? html`
   <header class="page-content__header">
-    <h1 class="page-content__header-title">${page.meta.title}</h1>
+        <h1 class="page-content__header-title">${page.meta.title}${postedIn}</h1>
 ${headerPublishDate(page)}
   </header>
   ` : ''}

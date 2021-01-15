@@ -34,8 +34,7 @@ I'm not planning on removing the lower plastic panel on the rear doors.
 That panel is a different type than the cargo protection area; it's a nicer plastic, and it's designed to be permanently installed.
 It contains the speakers and door opening/locking mechanism, and I don't want to mess with any of that quite yet.
 
-<!-- TODO: port to new format. -->
-![](before-one-panel-removed/before-one-panel-removed-listing.jpg)
+{{$.media(page, 'before-one-panel-removed')}}
 
 The panels are secured with little two-part plastic snap-fit pins.
 To remove the pins, you need to first pull out the center with the help of a wedge (I used a screwdriver).
@@ -53,7 +52,7 @@ There is a wiring loom running along the left top corner of the cargo area, from
 It's protected by two rather sad-looking, droopy pieces of plastic.
 They showed signs of having fallen off in the past, and it looks like the previous owner said "screw it" and screwed the protective cover straight to the frame instead of trusting the factory-installed wiring loom clips.
 
-![](wiring-loom-to-front/wiring-loom-to-front-listing.jpg)
+{{$.media(page, 'wiring-loom-to-front')}}
 
 I found that a lot of the wiring loom clips were either broken or missing, leading to the wire loom sagging an alarming amount in some spots.
 The factory clips snap into the frame through two rectangular holes, one above the other.
@@ -62,7 +61,7 @@ I decided to make a 3D-printable clip that could snap into the same holes to sec
 (For the curious: the top hole is 17mm wide, the bottom hole is 9mm wide, and both holes are 9mm tall.
 There's an inside radius of around 1mm, and the metal between the holes is 17mm edge-to-edge.)
 
-![](wiring-loom-clip-detail/wiring-loom-clip-detail-listing.jpg)
+{{$.media(page, 'wiring-loom-clip-detail')}}
 
 So I designed a 3D-printed clip to replace the missing factory clips.
 It snaps tightly into the factory holes in the frame, and has an internal slot to hold a 4mm ziptie.
@@ -104,7 +103,7 @@ The dealer had washed the van with impunity, so the denim was wet, making the fl
 
 # Cleaning the Floor
 
-![](van-cleaning/van-cleaning.jpg)
+{{$.media(page, 'van-cleaning')}}
 
 Now that the bare metal is fully exposed, it's time to clean up the van.
 There are layers of grime and metal filings under the floor.

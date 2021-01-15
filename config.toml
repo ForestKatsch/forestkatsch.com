@@ -34,6 +34,12 @@ handler = "./handlers/album.ts"
 extensions = [".jpg", ".png", ".jpeg"]
 handler = "./handlers/image.ts"
 
+[handlers.tag]
+handler = "./handlers/tag.ts"
+
+[handlers.category]
+handler = "./handlers/category.ts"
+
 [transform]
 operations = [
   "strip-summary",
@@ -46,6 +52,7 @@ operations = [
   "album-reference",
   
   "tag-generate",
+  "category-generate",
 
   "content-interpolation",
   

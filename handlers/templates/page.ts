@@ -11,7 +11,7 @@ export function pageHeader(page: Page): TemplateResult {
     <span class="page-header__home-message">Hi, I'm Forest!</span>
   </a>
   <div class="page-header__links">
-    <!--<a href="${page.link('/feed')}">Feed</a>-->
+    <a href="${page.link('/feed')}">Feed</a>
     <a href="${page.link('/#featured')}" class="featured">Featured Projects</a>
   </div>
 </header>
@@ -34,7 +34,7 @@ export function pageFooter(page: Page): TemplateResult {
   <div class="page-footer__container horizontal secondary">
     <span class="page-footer__generation">This page was generated from <code>${page.contentPath ? page.contentPath : '@internal'}</code>
   by <a href="${page.link('/software/apogee')}">Apogee SSG</a> on <code>${new Date().toISOString()}</code></span>
-    <span class="page-footer__tags">${page.meta.tags.join(' • ')}</span>
+<span class="page-footer__tags">${page.tags.length ? 'tags: ' : ''}${page.tags.map((tag, index) => html`${index >= 1 ? ' • ' : ''}<a href="/tags/${tag}">${tag}</a>`)}</span>
   </div>
 </footer>
 `;

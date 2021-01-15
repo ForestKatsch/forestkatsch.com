@@ -494,12 +494,14 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   margin-right: 0.5rem;
 }
 
+/*
 .page-header__links a:not(.featured) {
   --primary: var(--text-primary);
   --primary-inverse: var(--background);
 
   opacity: 0.75;
 }
+*/
 
 /* Main content */
 .page-content {
@@ -552,10 +554,19 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   line-height: 1.0em;
   font-size: 1.5em;
   font-weight: bold;
+
+  margin-right: 0.5em;
+}
+
+.page-content__header-category {
+  margin-left: 0.5em;
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: var(--text-secondary);
 }
 
 .page-content__header-date {
-  font-size: 1.1em;
+  font-size: 1.1rem;
   color: var(--text-secondary);
 }
 
@@ -830,15 +841,18 @@ body[data-handler=image] {
 }
 
 @media (hover: hover) {
+
+  /*
   .effect__lift:hover {
     transform: translateY(-0.12rem) scale(1.01) perspective(35rem) rotateX(2deg);
     box-shadow: 0 12px 32px 0 RGBA(0, 0, 0, 0.2), 0 32px 64px -16px RGBA(0, 0, 0, 0.3);
 
     /* This technically does make it look better, but the jump when leaving isn't worth it.
       z-index: 1;
-   */
   }
+*/
   
+  .effect__lift:hover,
   .effect__lift.effect__lift--subtle:hover {
     transform: translateY(0) scale(1) perspective(30rem) rotateX(0deg);
     box-shadow: 0 8px 18px 0 RGBA(0, 0, 0, 0.2), 0 24px 48px -12px RGBA(0, 0, 0, 0.1);
@@ -995,6 +1009,10 @@ body[data-handler=image] {
   --category-background: transparent;
   --category-text: var(--text-primary);
 
+  color: var(--text-secondary);
+}
+
+.page-listing-entry__footer-category .category {
   background-color: var(--category-background);
   box-shadow: 0 0 0 4px var(--category-background);
   color: var(--category-text);
@@ -1162,17 +1180,17 @@ body[data-handler=image] {
 
 /* Artfully scattered images. */
 .page-listing-entry__album-preview .preview:nth-child(0)  { transform: rotate(3.5deg) }
-.page-listing-entry__album-preview .preview:nth-child(1)  { transform: rotate(-2deg) }
-.page-listing-entry__album-preview .preview:nth-child(2)  { transform: rotate(3deg) }
-.page-listing-entry__album-preview .preview:nth-child(3)  { transform: rotate(-4deg) }
-.page-listing-entry__album-preview .preview:nth-child(4)  { transform: rotate(1.2deg) }
-.page-listing-entry__album-preview .preview:nth-child(5)  { transform: rotate(-3deg) }
-.page-listing-entry__album-preview .preview:nth-child(6)  { transform: rotate(1.8deg) }
-.page-listing-entry__album-preview .preview:nth-child(7)  { transform: rotate(-2.8deg) }
-.page-listing-entry__album-preview .preview:nth-child(8)  { transform: rotate(2deg) }
-.page-listing-entry__album-preview .preview:nth-child(9)  { transform: rotate(-4deg) }
-.page-listing-entry__album-preview .preview:nth-child(10) { transform: rotate(-2.5deg) }
-.page-listing-entry__album-preview .preview:nth-child(11) { transform: rotate(1deg) }
+.page-listing-entry__album-preview .preview:nth-child(1)  { transform: rotate(3deg) }
+.page-listing-entry__album-preview .preview:nth-child(2)  { transform: rotate(-2deg) }
+.page-listing-entry__album-preview .preview:nth-child(3)  { transform: rotate(-1.2deg) }
+.page-listing-entry__album-preview .preview:nth-child(4)  { transform: rotate(-3deg) }
+.page-listing-entry__album-preview .preview:nth-child(5)  { transform: rotate(1deg) }
+.page-listing-entry__album-preview .preview:nth-child(6)  { transform: rotate(3.2deg) }
+.page-listing-entry__album-preview .preview:nth-child(7)  { transform: rotate(1.2deg) }
+.page-listing-entry__album-preview .preview:nth-child(8)  { transform: rotate(2.4deg) }
+.page-listing-entry__album-preview .preview:nth-child(9)  { transform: rotate(-2deg) }
+.page-listing-entry__album-preview .preview:nth-child(10) { transform: rotate(3deg) }
+.page-listing-entry__album-preview .preview:nth-child(11) { transform: rotate(-1.2deg) }
 
 .page-listing-entry--text {
   position: relative;
@@ -1217,8 +1235,12 @@ body[data-handler=image] {
   --category-background: #000;
 }
   
+.page-listing-entry[data-category=software] .page-listing-entry__footer-category .category {
+  margin-left: 0.2em;
+}
+
 .page-listing-entry[data-category=creative] .page-listing-entry__footer-category {
-  --category-text: #9e228d;
+  --category-text: hsla(275, 90%, 70%);
 }
   
 .page-listing-entry[data-category=reference] .page-listing-entry__footer-category {
