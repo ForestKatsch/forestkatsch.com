@@ -64,18 +64,27 @@ async function getImageSize(filename: string): Promise<number[]> {
   }
 }
 
-async function convert(source: string, dest: string, args: string = ''): Promise<void> {
+// Returns `true` if the operation was run.
+async function convert(source: string, dest: string, args: string = ''): Promise<boolean> {
   if(!(await copyNeeded(source, dest))) {
-    return;
+    return false;
   }
   
   const results = await Deno.run({
     cmd: ['convert', ...args.split(/\s/g), source, dest],
   }).status();
+
+  return true;
 }
 
-async function convertResize(source: string, dest: string, width: number, height: number, args: string = ''): Promise<void> {
-  await convert(source, dest, `-resize ${width}x${height} ` + args);
+async function watermark(image: string): Promise<void> {
+  const results = await Deno.run({
+    cmd: ['composite', path.join(Deno.cwd(), 'handlers/tools/watermark.png'), '-dissolve', '50', '-gravity', 'southeast', image, image],
+  }).status();
+}
+
+async function convertResize(source: string, dest: string, width: number, height: number, args: string = ''): Promise<boolean> {
+  return await convert(source, dest, `-resize ${width}x${height} ` + args);
 }
 
 // If `value` is in `subs`, return the value of `subs[value]`; otherwise, return `value` as-is.
@@ -113,6 +122,7 @@ export default class ImageContentHandler extends TextContentHandler {
     this.addRenderVariant('cover', this.renderCover);
 
     this.meta.static = true;
+    this.meta.watermark = true;
   }
 
   async _ingest(page: Page): Promise<void> {
@@ -224,21 +234,28 @@ export default class ImageContentHandler extends TextContentHandler {
 
   // Copies the media from the content folder to the output folder, unmodified.
   async mediaCopy(page: Page): Promise<void> {
+    await ensureDir(path.dirname(this.getFilesystemMediaOutputPath(page)));
+
+    const source = page.contentFilename;
+    
+    if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page)))) {
+      //return;
+    }
+    
     this.site.log.debug(`copying/converting image '${page.sourcePath}'`);
 
-    await ensureDir(path.dirname(this.getFilesystemMediaOutputPath(page)));
-    
-    await copy(page.contentFilename, this.getFilesystemMediaOutputPath(page), {overwrite: true});
+    await copy(source, this.getFilesystemMediaOutputPath(page), {overwrite: true});
+    await watermark(this.getFilesystemMediaOutputPath(page));
 
     // 'cover' image is a small-ish image used as the primary image on most places.
     // It can be shown full-width, so we need to keep it rather big, but we keep quality lowish.
-    await convertResize(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
 
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convertResize(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
     
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convert(page.contentFilename, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
+    await convert(source, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
   }
 
   // Returns `true` if the image has no useful information, and the image can be linked to directly.
@@ -252,7 +269,7 @@ export default class ImageContentHandler extends TextContentHandler {
 
   imageLink(page: Page): string {
     if(this.shouldBeDirectLink(page)) {
-      return this.getCoverPath(page);
+      return this.getMediaOutputPath(page);
     }
 
     return page.path;
@@ -396,13 +413,15 @@ ${pageHeader(page)}
         <h1 class="content-media__header-title">${page.meta.title}</h1>
         ${headerPublishDate(page, '')}
       </header>
-      <img src="${coverImagePath}"
-           class="content-media__media"
-           width="${page.meta.image.width}"
-           height="${page.meta.image.height}" />
+      <a href="${page.link(this.getMediaOutputPath(page))}" class="plain" title="Open Full Resolution">
+        <img src="${coverImagePath}"
+             class="content-media__media"
+             width="${page.meta.image.width}"
+             height="${page.meta.image.height}" />
+      </a>
       <header class="content-media__infobar">
         <span class="content-media__infobar-links">
-          <a href="${page.link(this.getMediaOutputPath(page))}">Open Full Resolution</a>
+          <a href="${page.link(this.getMediaOutputPath(page))}" title="Open Full Resolution">Open Full Resolution</a>
           <a id="share-button" style="display:none;">Share</a>
           <!--<a href="${page.link(this.getMediaOutputPath(page))}">Buy Prints</a>-->
         </span>

@@ -270,6 +270,17 @@ a:not(.plain):hover {
   margin-top: 0.6em;
 }
 
+.text blockquote {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+.text blockquote {
+  margin-left: calc(var(--gutter-padding) + 1em);
+  padding-left: 1em;
+  border-left: 2px solid var(--text-tertiary);
+}
+
 .text ul li::marker{
   content: '- ';
 }
@@ -576,6 +587,10 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   margin-right: var(--gutter-padding);
 }
 
+.text blockquote > * {
+  margin-left: 0;
+}
+  
 .page-content__text h1,
 .page-content__text h2,
 .page-content__text h3,
@@ -1426,12 +1441,17 @@ body[data-handler=image] {
 }
 
 .page-content__longform .page-content__text > p,
+.page-content__longform .page-content__text > blockquote,
 .page-content__longform .page-content__text > ul,
 .page-content__longform .page-content__text > ol {
   font-size: 0.8em;
-  line-height: 1.6em;
+  line-height: 1.75em;
 }
 
+.page-content__longform .page-content__text > p {
+  text-align: justify;
+}
+ 
 /* Inline image in articles. */
 
 .inline-image {
