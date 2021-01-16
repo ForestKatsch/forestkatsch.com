@@ -165,6 +165,10 @@ export default class ImageContentHandler extends TextContentHandler {
     return this.getMediaOutputPath(page, 'cover');
   }
 
+  getListingPath(page: Page): string {
+    return this.getMediaOutputPath(page, 'listing');
+  }
+
   getFilesystemMediaOutputPath(page: Page, variant?: string): string {
     return path.join(this.site.outputRoot, this.getMediaOutputPath(page, variant));
   }
@@ -239,6 +243,7 @@ export default class ImageContentHandler extends TextContentHandler {
     const source = page.contentFilename;
     
     if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page)))) {
+      // Remove the following line to force a complete conversion for every image no matter what (will be very slow!)
       //return;
     }
     
@@ -252,7 +257,7 @@ export default class ImageContentHandler extends TextContentHandler {
     await convertResize(source, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
 
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 720, '-quality 90 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 640, '-quality 90 -strip -interlace Plane');
     
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
     await convert(source, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
@@ -289,7 +294,7 @@ export default class ImageContentHandler extends TextContentHandler {
 <section class="page-listing-entry page-listing-entry--image page-listing-entry--media ${variant === 'listing-album' ? 'page-listing-entry--in-album' : ''}">
   <a class="page-listing-entry__media-wrapper plain ${variant === 'listing-album' ? '' : 'effect__lift effect__shine'} effect__frame"
      title="Click to visit image page"
-     href="${listingPage.link(page)}">
+     href="${listingPage.link(variant === 'listing-album' ? this.imageLink(page) : page)}">
     <img src="${imagePath}"
          loading="lazy"
          class="content-media__media"

@@ -1,5 +1,9 @@
 title = "Transcript of Tom Mueller's speech interview on May 2, 2017"
 
+summary = """
+On May 2, 2017, Tom Mueller, propulsion CTO at SpaceX, conducted a speech/interview with some members of the New York University Astronomy Society. This was streamed live on Twitch; I’ve transcribed it with the help of u/dansemacabred2, u/jclishman, and u/Zucal. Many thanks!
+"""
+
 publishDate = 2017-05-13T00:00:00Z
 
 category = "transcription"
@@ -137,7 +141,7 @@ So that was my ramble; that's what I want to talk about today. So we can open up
 
 Yeah.
 
-> Okay, so.. um, our first one is: how far is too far for the rockets? The Mars Colonial Transporter was renamed the Interplanetary Transport System, because it was deemed that travel could be made further than Mars; and similarly, do you think deep space travel will ever be possible or are we limited by distance?
+> Okay, so... um, our first one is: how far is too far for the rockets? The Mars Colonial Transporter was renamed the Interplanetary Transport System, because it was deemed that travel could be made further than Mars; and similarly, do you think deep space travel will ever be possible or are we limited by distance?
 
 Uh, yeah. I mean, some things are too far, like you can't get--- you can't get to Mars with our system about *[inaudible]* you know, about 24 out of about 26 months, you can't get to Mars. It's on the other side of the sun. You want to go to Mars when it's swinging by you. You want to go when it's *[inaudible]*, you know, *[inaudible]* miles, not when it's like 210 million miles away. We can obviously go to the outer planets, like we have with the planetary probes, it's just that the way to do that is with gravitational assists. And it takes years. If we wanted to go direct to Jupiter, we could do it with this system, but we couldn't throw a lot of mass. It'd probably be--- we can put a hundred tons onto Mars; we can probably put, I don't know; I'm guessing like 20 tons, quickly, to Jupiter. And it would take much longer; Jupiter is much further than Mars. You wouldn't be able to do it with people because you wouldn't be able to provide the supplies they'd need; the oxygen and the food and the water and everything. So I think the system we have in work for Mars would not work to go directly to the outer planets; but if you had, you know, a system of depots along the way, you could do it. You'd have to kind of hop along the way. I don't think you could go much farther than Jupiter; it's twice as far to Saturn, and it's getting so cold; there's a lot of moons on Jupiter, a lot of surface there, so I think it's definitely the place to go.
 
@@ -171,7 +175,7 @@ I wouldn't want to have Elon as a father. I think he'd never *[laughter from cro
 
 > Here's another question from *[name redacted]*: a common misconception about early rocket science is that people didn't understand Newton's third law of motion and thought that the rocket fuel needed something to push against. Therefore, nothing could travel through the vacuum of space. Is this still a common misconception, and are there any other common misconceptions like that that you try and educate the public on?
 
-Yes. *[laughter]* But it's funny; we're in the era of disinformation. You can find all kinds of people that think the earth is flat. And nothing you can tell them will convince them that it's not. And it's those people that you just don't want to waste your time with them. But I've seen people say, like I've seen Quora answers that, they're still saying that rocket engines can work in space when it's clearly impossible because they have nothing to push against. Which is just, uh, it's just so easily provable *[laughs]* it's.. you know, it's ridiculous. But think of it this way: this is the way I always explain it to people. If you're sitting in a wagon with a bunch of bricks, and you pick up a brick and throw it out the back of the wagon, you know, it'll move you. Right? You can move yourself by throwing bricks out of the wagon. So you're not pushing against anything; you're pushing against the brick. That's what the rocket engine is doing.
+Yes. *[laughter]* But it's funny; we're in the era of disinformation. You can find all kinds of people that think the earth is flat. And nothing you can tell them will convince them that it's not. And it's those people that you just don't want to waste your time with them. But I've seen people say, like I've seen Quora answers that, they're still saying that rocket engines can work in space when it's clearly impossible because they have nothing to push against. Which is just, uh, it's just so easily provable *[laughs]* it's... you know, it's ridiculous. But think of it this way: this is the way I always explain it to people. If you're sitting in a wagon with a bunch of bricks, and you pick up a brick and throw it out the back of the wagon, you know, it'll move you. Right? You can move yourself by throwing bricks out of the wagon. So you're not pushing against anything; you're pushing against the brick. That's what the rocket engine is doing.
 
 I'll give you an example. The Merlin engine, the current version of the rocket engine, basically throws 800 pounds per second of bricks out the back at about, uh, ten thousand five hundred feet per second. So if you're throwing eight hundred pounds of bricks at Mach 10 out of the back of your wagon, you're going to get a lot of thrust out of it. That's how a rocket engine works.
 
@@ -199,7 +203,7 @@ Sorry, I didn't quite get that.
 
 > Does SpaceX have any protocols in place in case of signs of previous life are found on Mars?
 
-Oh! *[laughs]* Um.. well, NASA has protocols.. *[laughter from crowd]* which we're following, initially. *[laughs]* Yeah, we want to go there and explore and, uh, find the signs of life. You know, it's very possible that there is life there; you know, probably microbes in the dirt; and there was probably a lot more when Mars was wet. So there'd probably be signs of previous life. Um.. I think Robert Zubrin explained it quite well, how overblown this "not mixing up the biologies" is, when you know, one of these anthrax poisoning cases happens, they can find out which lab the anthrax came from by looking at the genes. So if you're trying to tell Earth life from Martian life, you look at the genes and it's going to be very easy to determine that. So it's--- I think it's way overblown; but we want to do exploration first, before we do colonization, and at that time, humans there are going to have a much, much better chance of digging up and finding where the life is. You know, if it exists there--- did exist--- I think the best way to do it is to put humans there.
+Oh! *[laughs]* Um... well, NASA has protocols... *[laughter from crowd]* which we're following, initially. *[laughs]* Yeah, we want to go there and explore and, uh, find the signs of life. You know, it's very possible that there is life there; you know, probably microbes in the dirt; and there was probably a lot more when Mars was wet. So there'd probably be signs of previous life. Um... I think Robert Zubrin explained it quite well, how overblown this "not mixing up the biologies" is, when you know, one of these anthrax poisoning cases happens, they can find out which lab the anthrax came from by looking at the genes. So if you're trying to tell Earth life from Martian life, you look at the genes and it's going to be very easy to determine that. So it's--- I think it's way overblown; but we want to do exploration first, before we do colonization, and at that time, humans there are going to have a much, much better chance of digging up and finding where the life is. You know, if it exists there--- did exist--- I think the best way to do it is to put humans there.
 
 In the meantime, they should be sending more robotic missions there. I think that, you know, they should be doing ten times as many robotic missions as they're doing. And doing, you know, way more focused on trying to find life. Because I think that's a huge, really important [question] to answer. And I'm all for going to Enceladus and finding life on those oceans; it looks like, you know, these ocean planets or ocean moons can support life. We need to go find out, you know. It's probably very; it'd be much easier to do that remotely--- robotically, to go to, you know, these moons; Jupiter or the moons of Saturn, to look for life. SO we need to send missions to do that.
 
@@ -207,7 +211,7 @@ In the meantime, they should be sending more robotic missions there. I think tha
 
 Okay.
 
-> Where is it.. oh, I lost it. Wait, hold on---
+> Where is it... oh, I lost it. Wait, hold on---
 
 > Many of us look up to you as a role model. Who do you find inspirational?
 
@@ -215,7 +219,7 @@ Okay.
 
 > Very nice. Well, all of us are so excited that you called and we just want to say--- give a huge thank you--- *[audience clapping]*
 
-Thank you! I'm always glad to talk with fans; you know, as you know, I'm a member of the LA astronomy society. I'm hugely into astronomy. I always was, as a kid.. I think I have one of these minds--- well, nobody can really fathom how big space is, but I'm one of the people--- who can fathom how unfathomable space is. And one of the things that always--- that I always thought about--- is every planet and every moon that we went to in this solar system was like a wow factor. There's just so much there; like Pluto, recently; there's so much more there than anybody ever thought. Just imagine what's out in the universe, in other star systems; you know, other galaxies. You can't imagine; it's just incredible. And it pains me that we're *[inaudible; confined?]* to Earth, and I'm trying to fix that as fast as I can.
+Thank you! I'm always glad to talk with fans; you know, as you know, I'm a member of the LA astronomy society. I'm hugely into astronomy. I always was, as a kid... I think I have one of these minds--- well, nobody can really fathom how big space is, but I'm one of the people--- who can fathom how unfathomable space is. And one of the things that always--- that I always thought about--- is every planet and every moon that we went to in this solar system was like a wow factor. There's just so much there; like Pluto, recently; there's so much more there than anybody ever thought. Just imagine what's out in the universe, in other star systems; you know, other galaxies. You can't imagine; it's just incredible. And it pains me that we're *[inaudible; confined?]* to Earth, and I'm trying to fix that as fast as I can.
 
 > In the meantime, we have nice pictures to look at, of space.
 

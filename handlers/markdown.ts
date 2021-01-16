@@ -65,7 +65,7 @@ export default class MarkdownContentHandler extends TextContentHandler {
 
     if(page.meta.cover) {
       let coverMedia = this.site.getPageFrom(page, page.meta.cover);
-      let coverImage = listingPage.link((coverMedia.handler as ImageContentHandler).getCoverPath(coverMedia));
+      let coverImage = listingPage.link((coverMedia.handler as ImageContentHandler).getListingPath(coverMedia));
       
       cover = html`
 <img class="page-listing-entry__image" src="${coverImage}" />

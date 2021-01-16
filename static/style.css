@@ -21,6 +21,8 @@
        url("SalsaBlueprint-Regular.ttf") format("truetype");
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Literata:ital@0;1&display=swap');
+
 /* Reset all styles to start from a blank canvas. */
 
 * {
@@ -950,7 +952,7 @@ body[data-handler=image] {
 .listing__infobox {
   --infobox-border-width: 4px;
   
-  padding: 1rem var(--horizontal-padding);
+  padding: 1rem calc(var(--horizontal-padding) - var(--infobox-border-width));
   
   border-radius: var(--box-border-radius);
   border: var(--infobox-border-width) solid var(--infobox-border);
