@@ -21,7 +21,20 @@
        url("SalsaBlueprint-Regular.ttf") format("truetype");
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Literata:ital@0;1&display=swap');
+@font-face {
+  font-family: 'Literata';
+  
+  src: url("Literata-Variable.woff2") format("woff2"),
+       url("Literata-Variable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Literata';
+  font-style: italic;
+  
+  src: url("Literata-Variable-Italic.woff2") format("woff2"),
+       url("Literata-Variable-Italic.ttf") format("truetype");
+}
 
 /* Reset all styles to start from a blank canvas. */
 
@@ -53,7 +66,7 @@
   /* Font stacks. */
   --display-font-family: 'Salsa Blueprint', -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   --body-font-family: var(--display-font-family);
-  --longform-font-family: 'Literata', sans-serif;
+  --longform-font-family: 'Literata', serif;
   
   --mono-font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 
