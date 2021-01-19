@@ -43,5 +43,5 @@ Since most rocket engines are circular, I decided to use polar coordinates to re
 Using Blender's *Texture Coordinate* node, I use the *Object* coordinate to get the coordinate of the 3D point currently under evaluation.
 Then, I convert this to polar coordinates with a bit of math: *X* corresponds to distance from center, *Y* corresponds to angle (not currently used), and *Z* corresponds to distance along the engine exhaust, with positive numbers being above the nozzle exit plane, and negative numbers being below the nozzle exit plane.
 
-<!--[Apogee SSG]({{page.link('/software/apogee')}})-->
+[Apogee SSG]({{page.link('/software/apogee')}})
 

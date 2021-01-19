@@ -2,7 +2,7 @@ title = 'Forest Katsch'
 handler = "home"
 
 pages = [
-  '/creative/rocket-exhaust-vfx',
+  '/van/ford-transit-2017-lwb-medium-roof/chapters/teardown',
   '/photos/starship/sn8',
   '/software/apogee',
   '/software/vertex-oven',
@@ -13,10 +13,14 @@ style = "home"
 
 links = [
   '/photos',
-  '/infographics',
+#  '/infographics',
   '/software',
+  '/creative',
   '/art'
 ]
+
+[criteria.include]
+tags = ['@featured']
 
 +++
 

@@ -24,18 +24,27 @@ export function pageFooter(page: Page): TemplateResult {
   if(page.meta.license) {
     pageLicense = markdown(`The contents of this page are licensed under the [${page.meta.license.name}](${page.meta.license.url}) license.`);
   }
+
+  let pageDetails = html``;
+
+  if(false) {
+    pageDetails = html`
+<div class="page-footer__container horizontal secondary">
+  <span class="page-footer__generation">This page was generated from <code>${page.contentPath ? page.contentPath : '@internal'}</code>
+  by <a href="${page.link('/software/apogee')}">Apogee SSG</a> on <code>${new Date().toISOString()}</code></span>
+  <span class="page-footer__tags">${page.tags.length ? 'tags: ' : ''}${page.tags.map((tag, index) => html`${index >= 1 ? ' • ' : ''}<a href="/tags/${tag}">${tag}</a>`)}</span>
+</div>
+`;
+  }
   
   return html`
 <footer class="page-footer">
   <div class="page-footer__container horizontal">
     <span class="page-footer__copyright">&copy; Copyright ${new Date().getFullYear()} Forest Katsch. ${pageLicense}</span>
-    <span class="page-footer__contact"><a href="${page.link('/contact')}">Contact me</a></span>
+    <span class="page-footer__contact"><a href="${page.link('/about')}">About Me</a></span>
   </div>
-  <div class="page-footer__container horizontal secondary">
-    <span class="page-footer__generation">This page was generated from <code>${page.contentPath ? page.contentPath : '@internal'}</code>
-  by <a href="${page.link('/software/apogee')}">Apogee SSG</a> on <code>${new Date().toISOString()}</code></span>
-<span class="page-footer__tags">${page.tags.length ? 'tags: ' : ''}${page.tags.map((tag, index) => html`${index >= 1 ? ' • ' : ''}<a href="/tags/${tag}">${tag}</a>`)}</span>
-  </div>
+${pageDetails}
 </footer>
 `;
 }
+

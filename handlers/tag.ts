@@ -20,17 +20,17 @@ export default class TagContentHandler extends ListingContentHandler {
   }
 
   async createTagPages() {
-    let tags = new Map<string, boolean>();
+    let tags = new Set<string>();
     
     for(let page of this.site.getPages()) {
       for(let tag of page.tags) {
-        tags.set(tag, true);
+        tags.add(tag);
       }
     }
 
     this.site.log.info(`creating ${tags.size} tag page(s)...`);
 
-    for(let tag of [...tags.keys()]) {
+    for(let tag of [...tags.values()]) {
       this.createPage(tag);
     }
     

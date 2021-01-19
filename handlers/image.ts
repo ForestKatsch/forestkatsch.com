@@ -52,7 +52,7 @@ async function getImageSize(filename: string): Promise<number[]> {
       stdout: 'piped',
     }).output());
     
-    let size = results.match(/, ([0-9]+)x([0-9]+)/);
+    let size = results.match(/, ([0-9]+)\s?x\s?([0-9]+)/);
 
     if(!size) {
       throw new Error(`no image size found in 'file' output`);
@@ -143,12 +143,12 @@ export default class ImageContentHandler extends TextContentHandler {
   }
 
   // Returns the output-relative media path.
-  getMediaOutputPath(page: Page, variant?: string): string {
+  getMediaOutputPath(page: Page, variant?: string, preserveExtension = false): string {
     let p = path.parse(page.path);
     let extension = path.extname(page.contentPath);
 
     // Always export jpg for images other than the original.
-    if(variant) {
+    if(!preserveExtension) {
       extension = '.jpg';
     }
     
@@ -169,12 +169,15 @@ export default class ImageContentHandler extends TextContentHandler {
     return this.getMediaOutputPath(page, 'listing');
   }
 
+  getOrigPath(page: Page): string {
+    return this.getMediaOutputPath(page, 'orig', true);
+  }
+
   getFilesystemMediaOutputPath(page: Page, variant?: string): string {
     return path.join(this.site.outputRoot, this.getMediaOutputPath(page, variant));
   }
 
   async mediaReadExif(page: Page): Promise<void> {
-    page.addTag('@photo');
     page.addTag('@media');
 
     let exif: {[key: string]: any} = {};
@@ -182,14 +185,17 @@ export default class ImageContentHandler extends TextContentHandler {
 
     let imageType = 'image';
 
+    let imageSize = await getImageSize(page.contentFilename);
+
     try {
       exif = await readExif(page.contentFilename);
 
       if(!exif) {
         // Do nothing if the exif is null.
-      } else  if(!exif.ExposureTime) {
+      } else if(!exif.ExposureTime) {
         imageType = 'image';
       } else {
+        page.addTag('@photo');
         imageType = 'photo';
         
         exifMeta = {
@@ -220,11 +226,9 @@ export default class ImageContentHandler extends TextContentHandler {
       this.site.log.warn(`error while reading exif data in '${page.sourcePath}':`, err);
     }
 
-    let imageSize = [exif ? exif.ExifImageWidth : 0, exif ? exif.ExifImageHeight : 0];
-
-    if(!exif) {
-      imageSize = await getImageSize(page.contentFilename);
-    }
+    //if(exif) {
+    //let imageSize = [exif ? exif.ExifImageWidth : 0, exif ? exif.ExifImageHeight : 0];
+    //}
 
     page._meta.image = _.merge(page.meta.image, {
       type: imageType,
@@ -244,12 +248,14 @@ export default class ImageContentHandler extends TextContentHandler {
     
     if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page)))) {
       // Remove the following line to force a complete conversion for every image no matter what (will be very slow!)
-      //return;
+      return;
     }
     
     this.site.log.debug(`copying/converting image '${page.sourcePath}'`);
 
-    await copy(source, this.getFilesystemMediaOutputPath(page), {overwrite: true});
+    await copy(source, this.getFilesystemMediaOutputPath(page, 'orig'), {overwrite: true});
+    
+    await convertResize(source, this.getFilesystemMediaOutputPath(page), 3840, 2160, '-quality 98 -strip -interlace Plane');
     await watermark(this.getFilesystemMediaOutputPath(page));
 
     // 'cover' image is a small-ish image used as the primary image on most places.

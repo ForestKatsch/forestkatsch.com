@@ -12,6 +12,7 @@ allTags = false
 
 [criteria.exclude]
 tags = ['@in-album']
+
 +++
 
 <!--I've written some [quick tutorials]()-->
@@ -19,8 +20,7 @@ tags = ['@in-album']
 I shoot primarily with my [Sony α6400](/photography/a6400), an APS-C mirrorless interchangeable-lens camera.
 Like most photographers, I take far more photos than I could ever edit or post.
 
-
-This lets me focus my editing efforts on only the best photos, 
+This lets me focus my editing efforts on only the best photos, all of which are presented here.
 
 <!--Like most photographers, I over-shoot and under-edit; this way, I have the ability to publish only my best photos.-->
 

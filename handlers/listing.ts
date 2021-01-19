@@ -96,7 +96,7 @@ ${this.options.home ? this.renderHomeLinks(page) : ''}
 # **LinkedIn:** [linkedin.com/in/forest-katsch](https://linkedin.com/in/forest-katsch)
 `;
     let homeLinks = html`
-<div class="home-page-listing-message" id="personal-links">${markdown("Find me online:")}</div>
+<div class="home-page-listing-message" id="personal-links">${markdown("Get in touch:")}</div>
 <section class="home-profile-links">
 ${markdown(homeLinksMarkdown)}
 </section>

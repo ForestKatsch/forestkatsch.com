@@ -14,27 +14,6 @@
   (And if you're seeing these comments in production, feel free to poke me on GitHub issues for Apogee SSG about creating transform pipelines for static files.)
 */
 
-@font-face {
-  font-family: 'Salsa Blueprint';
-  
-  src: url("SalsaBlueprint-Regular.woff2") format("woff2"),
-       url("SalsaBlueprint-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: 'Literata';
-  
-  src: url("Literata-Variable.woff2") format("woff2"),
-       url("Literata-Variable.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: 'Literata';
-  font-style: italic;
-  
-  src: url("Literata-Variable-Italic.woff2") format("woff2"),
-       url("Literata-Variable-Italic.ttf") format("truetype");
-}
 
 /* Reset all styles to start from a blank canvas. */
 
@@ -108,7 +87,7 @@
   --primary-inverse: #fff;
 
   /* Now for something entirely different. */
-  --max-width: 42rem;
+  --max-width: 46rem;
   --gutter-size: 1.5rem;
   --gutter-padding: 1rem;
   --horizontal-padding: 1rem;
@@ -457,7 +436,7 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   transition: transform 0.35s ease, opacity 0.25s ease;
 }
 
-@media screen and (max-width: 42rem) {
+@media screen and (max-width: 46rem) {
   .page-header {
     flex-direction: column;
     font-size: 1.3em;
@@ -566,7 +545,7 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   opacity: 0.75;
 }
 
-@media screen and (max-width: 42rem) {
+@media screen and (max-width: 46rem) {
   .page-content__header-title {
     font-size: 1.1em;
   }
@@ -711,7 +690,7 @@ body[data-handler=image] {
   max-width: calc(var(--max-width) - var(--gutter-padding) * 2 - var(--gutter-size) * 2 + var(--horizontal-padding) * 2);
 }
 
-@media only screen and (max-width: 42rem) {
+@media only screen and (max-width: 46rem) {
   .content-media__wrapper {
     margin-left: 0;
     margin-right: 0;
@@ -785,7 +764,7 @@ body[data-handler=image] {
   color: #f83;
 }
 
-@media only screen and (max-width: 42rem) {
+@media only screen and (max-width: 46rem) {
   .content-media {
     --media-border-width: 0px;
     --box-border-radius: 0px;
@@ -1088,8 +1067,9 @@ body[data-handler=image] {
   object-fit: cover;
 }
 
+/* The maximum height of media listings. */
 .page-listing-entry--media:not(.page-listing-entry--in-album) .content-media__media {
-  max-height: 16rem;
+  max-height: 18rem;
 }
 
 /* Album */

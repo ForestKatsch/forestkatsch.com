@@ -2,7 +2,7 @@
 title = "Salsa Blueprint Font"
 summary = "I created a font based on my handwriting. Here's how I did it."
 
-category = "design"
+category = "creative"
 
 tags = ["font", "design"]
 publishDate = 2020-12-31T10:23:00-06:00

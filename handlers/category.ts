@@ -28,6 +28,11 @@ export default class CategoryContentHandler extends ListingContentHandler {
   }
 
   createPage(category: string) {
+    if(this.site.hasPage(this.getPagePath(category))) {
+      this.site.log.debug(`skipping creation of category page '${category}': page already exists`);
+      return;
+    }
+    
     let page = this.site.createPage(this.getPagePath(category), this);
     
     page._meta.criteria = {

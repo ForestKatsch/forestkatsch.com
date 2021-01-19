@@ -1,12 +1,14 @@
-title = "Art"
+title = "Creative"
 
 handler = 'listing'
+
+summary = "Design, fiction, and art"
 
 [infobox]
 style="art"
 
 [criteria.include]
-category = "art"
+tags = ["creative"]
 +++
 
 I make some art from time to time.

@@ -1,7 +1,12 @@
 title = "Feed"
+summary = "The firehose."
+
 handler = 'listing'
+
+[criteria.exclude]
+tags = ['@in-album']
 
 +++
 
-Everything's coming at you, so fast.
-All my projects, even the bad ones.
+Here's a chronological list containing every post I've made.
+Art, fiction, photos... it's all here.
