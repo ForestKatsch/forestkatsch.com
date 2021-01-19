@@ -61,7 +61,6 @@ export function htmlPage({
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, viewport-fit=cover" />
     <link rel="stylesheet" href="${page.static('style.css')}" />
     <title>${title ?? page.meta.title}</title>
-${page.meta.longform ? html`
     <style>
 @font-face {
   font-family: 'Salsa Blueprint';
@@ -70,6 +69,7 @@ ${page.meta.longform ? html`
        url("${page.static('SalsaBlueprint-Regular.ttf')}") format("truetype");
 }
 
+${page.meta.longform ? html`
 @font-face {
   font-family: 'Literata';
   
@@ -84,8 +84,8 @@ ${page.meta.longform ? html`
   src: url("${page.static('Literata-Variable-Italic.woff2')}") format("woff2"),
        url("${page.static('Literata-Variable-Italic.ttf')}") format("truetype");
 }
-  </style>
   ` : ''}
+  </style>
 ${head}
   </head>
   <body data-handler="${page.handler.name}">

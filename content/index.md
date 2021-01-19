@@ -2,10 +2,12 @@ title = 'Forest Katsch'
 handler = "home"
 
 pages = [
-  '/van/ford-transit-2017-lwb-medium-roof/chapters/teardown',
   '/photos/starship/sn8',
+  '/art/spacex-falcon9-booster-landing-burn',
+  '/art/xon-wasp-venalis-station-departure',
+  #'/software/vertex-oven',
+  '/van/ford-transit-2017-lwb-medium-roof/chapters/teardown',
   '/software/apogee',
-  '/software/vertex-oven',
 ]
 
 [infobox]
