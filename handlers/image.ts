@@ -173,8 +173,8 @@ export default class ImageContentHandler extends TextContentHandler {
     return this.getMediaOutputPath(page, 'orig', true);
   }
 
-  getFilesystemMediaOutputPath(page: Page, variant?: string): string {
-    return path.join(this.site.outputRoot, this.getMediaOutputPath(page, variant));
+  getFilesystemMediaOutputPath(page: Page, variant?: string, preserveExtension = false): string {
+    return path.join(this.site.outputRoot, this.getMediaOutputPath(page, variant, preserveExtension));
   }
 
   async mediaReadExif(page: Page): Promise<void> {
@@ -253,7 +253,7 @@ export default class ImageContentHandler extends TextContentHandler {
     
     this.site.log.debug(`copying/converting image '${page.sourcePath}'`);
 
-    await copy(source, this.getFilesystemMediaOutputPath(page, 'orig'), {overwrite: true});
+    await copy(source, this.getFilesystemMediaOutputPath(page, 'orig', true), {overwrite: true});
     
     await convertResize(source, this.getFilesystemMediaOutputPath(page), 3840, 2160, '-quality 98 -strip -interlace Plane');
     await watermark(this.getFilesystemMediaOutputPath(page));
