@@ -108,7 +108,7 @@ ${markdown(homeLinksMarkdown)}
       head: html``,
       body: html`
 ${this.options.home ? homeHeader : pageHeader(page)}
-<main class="page-content page-content--listing infobox-style--${infoboxStyle}">
+<main class="page-content page-content--listing infobox-style--${infoboxStyle} ${this.options.home ? 'home' : ''}">
   ${this.renderInfobox(page)}
 ${this.options.home ? homeLinks : ''}
 ${this.options.home ? html`<div class="home-page-listing-message" id="featured">${markdown("Here are some projects I'm proud of:")}</div>` : ''}

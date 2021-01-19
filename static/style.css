@@ -87,7 +87,7 @@
   --primary-inverse: #fff;
 
   /* Now for something entirely different. */
-  --max-width: 46rem;
+  --max-width: 44rem;
   --gutter-size: 1.5rem;
   --gutter-padding: 1rem;
   --horizontal-padding: 1rem;
@@ -158,9 +158,10 @@
 
 @media only screen and (max-width: 800px) {
   :root {
-    --gutter-size: 0.5rem;
+    --gutter-size: 1rem;
     --gutter-padding: 0.5rem;
   }
+
 }
 
 ::-moz-selection {
@@ -436,7 +437,7 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   transition: transform 0.35s ease, opacity 0.25s ease;
 }
 
-@media screen and (max-width: 46rem) {
+@media screen and (max-width: 44rem) {
   .page-header {
     flex-direction: column;
     font-size: 1.3em;
@@ -545,7 +546,7 @@ h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
   opacity: 0.75;
 }
 
-@media screen and (max-width: 46rem) {
+@media screen and (max-width: 44rem) {
   .page-content__header-title {
     font-size: 1.1em;
   }
@@ -690,7 +691,7 @@ body[data-handler=image] {
   max-width: calc(var(--max-width) - var(--gutter-padding) * 2 - var(--gutter-size) * 2 + var(--horizontal-padding) * 2);
 }
 
-@media only screen and (max-width: 46rem) {
+@media only screen and (max-width: 44rem) {
   .content-media__wrapper {
     margin-left: 0;
     margin-right: 0;
@@ -764,7 +765,7 @@ body[data-handler=image] {
   color: #f83;
 }
 
-@media only screen and (max-width: 46rem) {
+@media only screen and (max-width: 44rem) {
   .content-media {
     --media-border-width: 0px;
     --box-border-radius: 0px;
@@ -1367,7 +1368,7 @@ body[data-handler=image] {
 }
 
 .home-profile-links {
-  padding: 1rem var(--gutter-padding);
+  padding: 1rem var(--horizontal-padding);
   
   background-color: var(--card);
   box-shadow: 0 2px 6px 0 RGBA(0, 0, 0, 0.15);
@@ -1400,6 +1401,16 @@ body[data-handler=image] {
 
 .home-profile-links hr::before {
   display: none;
+}
+
+@media screen and (max-width: 800px) {
+  
+  .home-profile-links {
+    margin-left: calc(var(--gutter-size) * -1);
+    margin-right: calc(var(--gutter-size) * -1);
+    border-radius: 0;
+  }
+  
 }
 
 /* */
@@ -1458,3 +1469,4 @@ body[data-handler=image] {
   border-radius: var(--box-border-radius);
   height: auto;
 }
+
