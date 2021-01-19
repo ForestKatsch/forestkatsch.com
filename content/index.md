@@ -16,7 +16,6 @@ links = [
 #  '/infographics',
   '/software',
   '/creative',
-  '/art'
 ]
 
 [criteria.include]

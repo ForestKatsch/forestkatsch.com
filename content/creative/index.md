@@ -9,6 +9,7 @@ style="art"
 
 [criteria.include]
 tags = ["creative"]
+categories = ["creative", "art", "fiction"]
 +++
 
-I make some art from time to time.
+Graphic design, fiction, and art.
