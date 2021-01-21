@@ -1,0 +1,41 @@
+title = "SpaceX Falcon 9 Components"
+
+category = "infographic"
+
+publishDate = 2016-06-16T00:00:00Z
+
+tags = [
+     "infographic-legacy",
+     
+     "vehicle",
+     "components",
+
+     "spacex",
+     "spacex-falcon9",
+     "spacex-falcon9-octaweb",
+     "spacex-falcon9-landing-leg",
+     "spacex-falcon9-stage-one",
+     "spacex-falcon9-stage-two",
+
+     "spacex-merlin1d",
+     "spacex-merlin1dvac",
+     
+     "launch-vehicle"
+     ]
+
+#[infographic]
+#category = "SpaceX Falcon 9"
+#name = "Components"
+#
+#aspect = "tall"
+#file = "vehicle/spacex-falcon9-components"
++++
+
+This is a brief overview of the components of the
+[SpaceX Falcon 9](/tags/spacex-falcon9/) in its fairing configuration
+(as opposed to the
+[Dragon 1]({{< ref "infographic/vehicle/spacex-dragon1-components.md" >}}) or
+[Dragon 2]({{< ref "infographic/vehicle/spacex-dragon2-components.md" >}}) configurations.)
+
+<!--more-->
+

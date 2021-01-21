@@ -84,7 +84,7 @@ async function watermark(image: string): Promise<void> {
 }
 
 async function convertResize(source: string, dest: string, width: number, height: number, args: string = ''): Promise<boolean> {
-  return await convert(source, dest, `-resize ${width}x${height} ` + args);
+  return await convert(source, dest, `-resize ${width}x${height}^ ` + args);
 }
 
 // If `value` is in `subs`, return the value of `subs[value]`; otherwise, return `value` as-is.
@@ -246,7 +246,7 @@ export default class ImageContentHandler extends TextContentHandler {
 
     const source = page.contentFilename;
     
-    if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page)))) {
+    if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page, 'orig', true)))) {
       // Remove the following line to force a complete conversion for every image no matter what (will be very slow!)
       return;
     }

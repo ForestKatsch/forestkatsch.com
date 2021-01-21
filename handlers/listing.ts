@@ -115,7 +115,7 @@ ${this.options.home ? html`<div class="home-page-listing-message" id="featured">
   <section class="page-listing">
   ${pages.map((p) => p.render('listing', page))}
   </section>
-  <div class="home-page-listing-message">${markdown(`Not finding something? Check the [feed](${page.link('/feed')}).`)}</div>
+${this.options.home ? html`<div class="home-page-listing-message">${markdown(`Not finding something? Check the [feed](${page.link('/feed')}).`)}</div>` : ''}
 </main>
 ${pageFooter(page)}
 `

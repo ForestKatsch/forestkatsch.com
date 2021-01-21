@@ -7,7 +7,8 @@ handler = 'listing'
 style="infographics"
 
 [criteria.include]
-tags = ['@photo']
+tags = ['infographic', 'infographic-legacy']
+allTags = false
 +++
 
-INFOGRAPHICS! HOW IT ALL WORKS!
+Launch vehicles, spacecraft, airplanes, and more

@@ -15,7 +15,7 @@ style = "home"
 
 links = [
   '/photos',
-#  '/infographics',
+  '/infographics',
   '/software',
   '/creative',
 ]
