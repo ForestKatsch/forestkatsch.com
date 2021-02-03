@@ -1,0 +1,10 @@
+
+title = 'SN9 skydive descent'
+summary = "Taken moments before engine ignition and (failed) flip maneuver."
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++
