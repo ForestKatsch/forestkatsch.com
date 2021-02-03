@@ -1,0 +1,10 @@
+
+title = 'SN9 ascent (wide)'
+summary = "SN9 is visible in the center of frame."
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

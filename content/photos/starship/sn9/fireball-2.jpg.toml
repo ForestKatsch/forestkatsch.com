@@ -1,0 +1,10 @@
+
+title = 'SN9 fireball 2'
+
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

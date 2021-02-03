@@ -2,6 +2,7 @@ title = 'Forest Katsch'
 handler = "home"
 
 pages = [
+  '/photos/starship/sn9',
   '/photos/starship/sn8',
   '/art/spacex-falcon9-booster-landing-burn',
   '/art/xon-wasp-venalis-station-departure',

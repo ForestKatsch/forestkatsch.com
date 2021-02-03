@@ -1,0 +1,11 @@
+
+title = 'SN9 ascent'
+summary = "SN9 has cleared the tower (aka SN10.)"
+
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

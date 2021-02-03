@@ -1,0 +1,11 @@
+
+title = 'SN9 aftermath'
+summary = "The remains of SN9 continue to smoke."
+
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

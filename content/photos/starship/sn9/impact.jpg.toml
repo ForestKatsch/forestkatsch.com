@@ -1,0 +1,11 @@
+
+title = 'SN9 impacts the landing pad'
+summary = "With only a single engine running, SN9 had too much momentum to correct with a single engine, and tipped too far the other way. At the moment of impact, SN9 was rolling and yawing far beyond the control authority of the single running engine."
+
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

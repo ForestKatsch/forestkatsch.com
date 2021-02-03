@@ -1,0 +1,11 @@
+
+title = 'SN9 apogee vent'
+summary = "SN9 vents liquid oxygen at apogee."
+
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++

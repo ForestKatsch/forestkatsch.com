@@ -1,0 +1,10 @@
+
+title = 'SN9 liftoff'
+summary = "Taken moments after liftoff. SN9 is on the right, and slightly higher than SN10 at this point."
+tags = ['starship', 'sn9', 'rocket']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++
