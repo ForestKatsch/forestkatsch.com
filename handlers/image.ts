@@ -1,11 +1,9 @@
 
 import * as path from 'https://deno.land/std@0.82.0/path/mod.ts';
 import {copy, ensureDir} from 'https://deno.land/std@0.82.0/fs/mod.ts';
+import {parse} from 'https://deno.land/std@0.91.0/datetime/mod.ts';
 import _ from 'https://cdn.skypack.dev/lodash@4.17.19';
 import objectPath from 'https://cdn.skypack.dev/object-path';
-//import {create as createExif} from 'https://deno.land/x/deno_exif@0.0.2/mod.ts';
-//import exifr from 'https://cdn.skypack.dev/exifr@6.0.0';
-//import exifJs from 'https://cdn.skypack.dev/exif-js@2.3.0';
 
 import {headerPublishDate, listingPublishDate} from './templates/date.ts';
 
@@ -16,7 +14,23 @@ import {pageHeader, pageFooter} from './templates/page.ts';
 import {markdown} from './templates/markdown.ts';
 
 // TODO: fix this.
-type ExifData = any;
+type ExifData = {
+  camera: {
+    make: string | null,
+    model: string | null
+  },
+  lens: {
+    model: string | null,
+  },
+  capture: {
+    fstop: number | null,
+    exposure: number | null,
+    iso: number | null,
+    focalLength: number | null,
+    focalLength35Equivalent: number | null,
+    date: Date | null
+  }
+};
 
 async function copyNeeded(source: string, dest: string): Promise<boolean> {
   try {
@@ -38,17 +52,109 @@ async function copyNeeded(source: string, dest: string): Promise<boolean> {
 
 }
 
-/*
+function parseExif(data: string): ExifData {
+
+  const exif = data.split('\n')
+    .filter((line) => line.trim().length > 0)
+    .map((line) => line.replace('exif:', '').split('=', 2));
+
+  const exifMap: {[key: string]: string} = {};
+
+  exif.forEach((element) => {
+    exifMap[element[0]] = element[1];
+  });
+
+  const getString = (key: string): string | null => {
+    if(exifMap.hasOwnProperty(key)) {
+      return exifMap[key];
+    }
+
+    return null;
+  };
+
+  const getRational = (key: string): number | null => {
+    let value = getString(key);
+
+    if(!value) {
+      return null;
+    }
+
+    try {
+      let ratio = value.split('/').map((i) => parseInt(i));
+
+      return ratio[0] / ratio[1];
+    } catch(err) {
+      return null;
+    }
+  };
+
+  const getNumber = (key: string): number | null => {
+    let value = getString(key);
+
+    if(!value) {
+      return null;
+    }
+
+    try {
+      return parseInt(value);
+    } catch(err) {
+      return null;
+    }
+  };
+
+  const getDate = (key: string): Date | null => {
+    let value = getString(key);
+
+    if(!value) {
+      return null;
+    }
+
+    try {
+      return parse(value, 'yyyy:MM:dd HH:mm:ss');
+    } catch(err) {
+      return null;
+    }
+  };
+
+  let exifData: ExifData = {
+    camera: {
+      make: getString('Make'),
+      model: getString('Model'),
+    },
+    lens: {
+      make: getString('LensMake'),
+      model: getString('LensModel')
+    },
+    capture: {
+      fstop: getRational('FNumber'),
+      exposure: getRational('ExposureTime'),
+      iso: getNumber('ISOSpeedRatings'),
+      focalLength: getRational('FocalLength'),
+      focalLength35Equivalent: getNumber('FocalLengthIn35mmFilm'),
+      date: getDate('DateTimeOriginal'),
+    }
+  };
+
+  return exifData;
+}
+
 async function readExif(filename: string): Promise<ExifData> {
   try {
-    let data = await ExifPromise({image: await Deno.readFile(filename)});
-    return data;
+    const results = new TextDecoder().decode(await Deno.run({
+      cmd: ['identify', '-format', '%[EXIF:*]', filename],
+      stdout: 'piped',
+    }).output());
+
+    if(!results.trim()) {
+      return null;
+    }
+
+    return parseExif(results);
   } catch(err) {
     console.log(err);
     throw new ApogeeError(`cannot read exif data from '${filename}'`, err);
   }
 }
-*/
 
 async function getImageSize(filename: string): Promise<number[]> {
   try {
@@ -193,13 +299,12 @@ export default class ImageContentHandler extends TextContentHandler {
     let imageSize = await getImageSize(page.contentFilename);
 
     try {
-      //exif = await readExif(page.contentFilename);
+      exif = await readExif(page.contentFilename);
 
       // TODO: read EXIF.
-      if(true) {
-        page.addTag('@photo');
-        imageType = 'photo';
-      } else if(!exif.ExposureTime) {
+      if(!exif) {
+        imageType = 'image';
+      } else if(!exif.capture.exposure) {
         imageType = 'image';
       } else {
         page.addTag('@photo');
@@ -207,25 +312,25 @@ export default class ImageContentHandler extends TextContentHandler {
         
         exifMeta = {
           camera: {
-            make: resolveCameraMake(exif.Make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
-            model: resolveCameraModel(exif.Model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
+            make: resolveCameraMake(exif.camera.make ?? objectPath.get(page.meta, 'image.exif.camera.make', null)),
+            model: resolveCameraModel(exif.camera.model ?? objectPath.get(page.meta, 'image.exif.camera.model', null)),
           },
 
           lens: {
-            model: exif.LensModel
+            model: exif.lens.model
           },
 
           capture: {
-            fstop: exif.FNumber,
-            exposure: exif.ExposureTime,
-            iso: exif.ISO,
-            focalLength: exif.FocalLength,
-            focalLength35Equivalent: exif.FocalLengthIn35mmFormat,
+            fstop: exif.capture.fstop,
+            exposure: exif.capture.exposure,
+            iso: exif.capture.iso,
+            focalLength: exif.capture.focalLength,
+            focalLength35Equivalent: exif.capture.focalLength35Equivalent,
           }
         };
         
         if(page.meta.publishDate < new Date(3600)) {
-          page._meta.publishDate = exif.DateTimeOriginal;
+          page._meta.publishDate = exif.capture.date;
         }
         
       }
