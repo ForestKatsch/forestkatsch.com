@@ -59,11 +59,11 @@ export function htmlPage({
     <meta name="theme-color" content="#3388ff" />
     <meta name="color-scheme" content="light dark" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <link rel="stylesheet" href="${page.static('style.css')}" />
     <title>${title ?? page.meta.title}</title>
     <style>
 @font-face {
   font-family: 'Salsa Blueprint';
+  font-display: swap;
   
   src: url("${page.static('SalsaBlueprint-Regular.woff2')}") format("woff2"),
        url("${page.static('SalsaBlueprint-Regular.ttf')}") format("truetype");
@@ -72,6 +72,7 @@ export function htmlPage({
 ${page.meta.longform ? html`
 @font-face {
   font-family: 'Literata';
+  font-display: swap;
   
   src: url("${page.static('Literata-Variable.woff2')}") format("woff2"),
        url("${page.static('Literata-Variable.ttf')}") format("truetype");
@@ -80,12 +81,14 @@ ${page.meta.longform ? html`
 @font-face {
   font-family: 'Literata';
   font-style: italic;
+  font-display: swap;
   
   src: url("${page.static('Literata-Variable-Italic.woff2')}") format("woff2"),
        url("${page.static('Literata-Variable-Italic.ttf')}") format("truetype");
 }
   ` : ''}
-  </style>
+    </style>
+    <link rel="stylesheet" href="${page.static('style.css')}" />
 ${head}
   </head>
   <body data-handler="${page.handler.name}">

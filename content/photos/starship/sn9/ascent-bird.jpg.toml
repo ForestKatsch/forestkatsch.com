@@ -1,0 +1,10 @@
+
+title = 'SN9 ascent (bird)'
+summary = "Flying creatures unite!"
+tags = ['starship', 'sn9', 'rocket', 'bird']
+
+[image.exif.camera]
+make = 'Sony'
+model = 'ILCE-6400'
+
++++
