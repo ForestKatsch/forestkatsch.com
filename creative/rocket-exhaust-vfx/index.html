@@ -1,0 +1,124 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../../icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="manifest" href="../../manifest.webmanifest">
+
+    <meta name="author" content="Forest Katsch" />
+    <meta name="description" content="How to use Blender Cycles volumetrics to make realistic-looking rocket exhaust." />
+    <meta name="keywords" content="creative,vfx,blender,blender-cycles,featured" />
+    <meta name="theme-color" content="#3388ff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Rocket Exhaust VFX breakdown</title>
+    <style>
+@font-face {
+  font-family: 'Salsa Blueprint';
+  font-display: swap;
+  
+  src: url("../../SalsaBlueprint-Regular.woff2") format("woff2"),
+       url("../../SalsaBlueprint-Regular.ttf") format("truetype");
+}
+
+
+    </style>
+    <link rel="stylesheet" href="../../style.css" />
+
+
+<meta property="og:url" content="https://beta-forestkatsch-com.netlify.com/creative/rocket-exhaust-vfx" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Rocket Exhaust VFX breakdown" />
+<meta property="og:description" content="How to use Blender Cycles volumetrics to make realistic-looking rocket exhaust." />
+<meta property="og:image" content="https://beta-forestkatsch-com.netlify.com/creative/rocket-exhaust-vfx/sea-level/sea-level-cover.jpg" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@ForestKatsch" />
+<meta name="twitter:title" content="Rocket Exhaust VFX breakdown" />
+<meta name="twitter:description" content="How to use Blender Cycles volumetrics to make realistic-looking rocket exhaust." />
+<meta name="twitter:image" content="https://beta-forestkatsch-com.netlify.com/creative/rocket-exhaust-vfx/sea-level/sea-level-cover.jpg" />
+
+  
+  </head>
+  <body data-handler="markdown">
+
+
+<header class="page-header">
+  <a href="../.." class="plain page-header__home">
+    <img src="../../identity/avatar-header.jpg"class="page-header__home-avatar" alt="An edited photograph of Forest wearing glasses, trying to look slightly mysterious, and failing." />
+    <span class="page-header__home-message">Hi, I'm Forest!</span>
+  </a>
+  <div class="page-header__links">
+    <a href="../../feed">Feed</a>
+    <a href="../../#featured" class="featured">Featured Projects</a>
+  </div>
+</header>
+
+<main class="page-content page-content--markdown ">
+
+  <header class="page-content__header">
+        <h1 class="page-content__header-title">Rocket Exhaust VFX breakdown<span class="page-content__header-category">filed in <a href="/category/creative">creative</a></span></h1>
+<time datetime="2021-01-14T00:00:00.000Z" class="page-content__header-date">published January 14, 2021</time>
+  </header>
+  
+  
+
+<section class="page-content__cover page-content__cover--image page-content__cover--image effect__frame">
+  <a class="page-content__cover-wrapper plain"
+     title="Click to visit image page"
+     href="sea-level/sea-level.jpg">
+    <img src="sea-level/sea-level-cover.jpg"
+         class="content-media__media"
+         width="1920"
+         height="1080" />
+  </a>
+</section>
+
+
+  <section class="page-content__text text"><p>I used Blender (and the Cycles render engine) to make rocket exhaust VFX.</p>
+<p>In the past, I’ve experimented with mesh-based exhaust, but that’s not a good fit for (pseudo)-photorealistic renders, and it’s hard to make it look good from all angles.
+For this shader, I wanted a single material that could blend seamlessly through all throttle levels and all altitudes.</p>
+<p>Here’s what I ended up on for the renders you see here:</p>
+<ul>
+<li>Convert cartesian coordinates to polar coordinates</li>
+<li>Split into two parts: outer shell, and mach diamonds</li>
+<li>For the outer shell, apply a cosine to the distance of the polar coordinate to simulate expansion and contraction</li>
+<li>For the mach diamonds, multiply the radius by the distance, modulo the period (to linearly increase the scale from 0 to the default of 1)</li>
+<li>Color the resulting “strength” field with color ramps that change with location and length along the exhaust</li>
+<li>Add these together, and clip to the inside of the engine nozzle using a parabola shape (to avoid exhaust from appearing outside the nozzle, which is bad)</li>
+</ul>
+<p>There are many other minor effects, such as a strong brightness boost near the nozzle, and a group of nodes that simulate severe underexpansion (simulating an engine burning in a vacuum.)
+But those are all just simple distortion node groups, applied to the polar coordinates.</p>
+<p><a class="inline-image plain"
+   title="Click to visit image page"
+   href="sea-level/sea-level.jpg">
+  <img src="sea-level/sea-level-listing.jpg"
+       loading="lazy"
+       class="inline-image__image"
+       width="1920"
+       height="1080" />
+</a></p>
+<h1 id="the-method">The Method</h1>
+<p>Since most rocket engines are circular, I decided to use polar coordinates to represent the exhaust.
+Using Blender’s <em>Texture Coordinate</em> node, I use the <em>Object</em> coordinate to get the coordinate of the 3D point currently under evaluation.
+Then, I convert this to polar coordinates with a bit of math: <em>X</em> corresponds to distance from center, <em>Y</em> corresponds to angle (not currently used), and <em>Z</em> corresponds to distance along the engine exhaust, with positive numbers being above the nozzle exit plane, and negative numbers being below the nozzle exit plane.</p>
+<p><a href="../../software/apogee">Apogee SSG</a></p>
+</section>
+</main>
+
+<footer class="page-footer">
+  <div class="page-footer__container horizontal">
+    <span class="page-footer__copyright">&copy; Copyright 2021 Forest Katsch. All rights reserved.</span>
+    <span class="page-footer__contact"><a href="../../about">About Me</a></span>
+  </div>
+
+</footer>
+
+
+  </body>
+</html>

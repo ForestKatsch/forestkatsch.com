@@ -1,0 +1,151 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../../icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+    <link rel="manifest" href="../../manifest.webmanifest">
+
+    <meta name="author" content="Forest Katsch" />
+    
+    <meta name="keywords" content="art,spacex,spacex-falcon9,spacex-falcon9-stage-one,ocean-landing,blender,blender-eevee,blender-cycles" />
+    <meta name="theme-color" content="#3388ff" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>SpaceX Falcon 9 landing burn</title>
+    <style>
+@font-face {
+  font-family: 'Salsa Blueprint';
+  font-display: swap;
+  
+  src: url("../../SalsaBlueprint-Regular.woff2") format("woff2"),
+       url("../../SalsaBlueprint-Regular.ttf") format("truetype");
+}
+
+
+    </style>
+    <link rel="stylesheet" href="../../style.css" />
+
+
+<meta property="og:url" content="https://beta-forestkatsch-com.netlify.com/art/spacex-falcon9-booster-landing-burn" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="SpaceX Falcon 9 landing burn" />
+<meta property="og:description" content="" />
+<meta property="og:image" content="https://beta-forestkatsch-com.netlify.com/art/spacex-falcon9-booster-landing-burn/spacex-falcon9-booster-landing-burn-cover.jpg" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@ForestKatsch" />
+<meta name="twitter:title" content="SpaceX Falcon 9 landing burn" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:image" content="https://beta-forestkatsch-com.netlify.com/art/spacex-falcon9-booster-landing-burn/spacex-falcon9-booster-landing-burn-cover.jpg" />
+
+  
+  </head>
+  <body data-handler="image">
+
+
+<header class="page-header">
+  <a href="../.." class="plain page-header__home">
+    <img src="../../identity/avatar-header.jpg"class="page-header__home-avatar" alt="An edited photograph of Forest wearing glasses, trying to look slightly mysterious, and failing." />
+    <span class="page-header__home-message">Hi, I'm Forest!</span>
+  </a>
+  <div class="page-header__links">
+    <a href="../../feed">Feed</a>
+    <a href="../../#featured" class="featured">Featured Projects</a>
+  </div>
+</header>
+
+<main class="page-content page-content--image page-content--media page-content--fullwidth">
+  <section class="content-media content-media--image">
+    <section class="content-media__wrapper effect__frame">
+      <header class="content-media__header">
+        <h1 class="content-media__header-title">SpaceX Falcon 9 landing burn</h1>
+        <time datetime="2019-12-22T00:00:00.000Z" class="page-content__header-date"> December 22, 2019</time>
+      </header>
+      <a href="spacex-falcon9-booster-landing-burn.jpg" class="plain" title="Open Full Resolution">
+        <img src="spacex-falcon9-booster-landing-burn-cover.jpg"
+             class="content-media__media"
+             width="3840"
+             height="2160" />
+      </a>
+      <header class="content-media__infobar">
+        <span class="content-media__infobar-links">
+          <a href="spacex-falcon9-booster-landing-burn.jpg" title="Open Full Resolution">Open Full Resolution</a>
+          <a id="share-button" style="display:none;">Share</a>
+          <!--<a href="spacex-falcon9-booster-landing-burn.jpg">Buy Prints</a>-->
+        </span>
+      </header>
+    </section>
+
+    <div class="content-media__description text page-content__text">
+      <p>This piece depicts a Falcon 9 booster in the final stages of its landing burn.
+The landing legs have been unlatched and are beginning to deploy, the pistons pushing the legs out against the airstream.
+At the top of the booster, the interstage-mounted grid fins continue to pivot to keep the booster pointed towards the landing pad.
+Now that the single Merlin 1D engine in the center of the octaweb has slowed the booster down to a near-standstill, the turbopump exhaust flame mostly burns down instead of wrapping around the octaweb and up the side.</p>
+<p>Looking closely at the clean white impression of the landing legs on the body, there are seven individual latches on the body to hold the landing leg in-place during ascent and descent.
+These latches open up at the last minute, just a few seconds before touchdown, and a small starter piston pushes the legs out, giving the primary pneumatic pistons enough mechanical advantage to finish the job.
+On the right side of the booster, beneath the “U” of the bottom leg, is a small white flap.
+The flap protects one of two octaweb-mounted quick-disconnects from the chaos of launch and reentry.
+Before launch, the propellants in the first stage booster are loaded through these quick disconnects.</p>
+<!--This 3D model the end result of hundreds of hours of research, modeling, texturing, and rigging.-->
+
+<h1 id="technical-details">Technical Details</h1>
+<p>Everything you see in this piece was created with <a href="/tags/blender">Blender</a> 2.80, <a href="/tags/blender-eevee">Eevee</a>, and <a href="/tags/blender-cycles">Cycles</a>.</p>
+<p>There are two sets of PBR textures for the first stage; each of them is 2048x2048, and are produced with a custom Blender scene and rendered with Cycles.
+There is an additional “cover” texture, used to mask out the sooty parts of the vehicle.
+The Falcon 9 here is actually <a href="https://host.zlsadesign.com/r1JD1yC0B.png">pretty low-poly</a>, at ~40k vertices.
+The normal maps really bring out the fine details in the legs and the body.</p>
+<p>The lens dirt, vignette, and film grain are all pre-rendered in, you guessed it, Eevee.
+The lens dirt image was created with a particle system, the particles being camera-facing planes with a custom simulated bokeh (to avoid the high render times of real bokeh, which isn’t needed anyway in this case.)
+The vignette and film grain are both pure shader solutions, rendered to images for compositing.</p>
+<p>The Falcon 9 model is <a href="https://host.zlsadesign.com/rJLEkiAAH.png">fully rigged</a>.
+The leg pistons slide in and out automatically as the leg bone is rotated.
+The grid fins are fully rigged as well, and can open, close, and pivot.</p>
+<h1 id="links">Links</h1>
+<p>The HDRI I used was found at <a href="https://hdrihaven.com/">HDRIHaven</a>. Their HDRIs are awesome; go check them out!</p>
+<p>Let me know what you think about this piece on <a href="https://twitter.com/zlsadesign/status/1209222110385557504">Twitter</a> and <a href="https://www.artstation.com/artwork/9enkmy">ArtStation</a>.
+And if you’d like this as a poster, check it out on <a href="https://www.redbubble.com/people/zlsa/works/43426258-spacex-falcon-9-landing-burn">RedBubble</a>.
+I highly appreciate all comments and critiques.
+Thank you for checking this out!</p>
+<hr>
+<p>This is a fan-made render, and no copyright infringement is intended.
+I believe this work is sufficiently transformative for its use of copyrighted material to qualify as fair use.</p>
+
+    </div>
+
+  </section>
+
+  <script>
+let share = document.getElementById("share-button");
+
+async function shareImage() {
+  await navigator.share({
+    title: "SpaceX Falcon 9 landing burn",
+    url: "/art/spacex-falcon9-booster-landing-burn/spacex-falcon9-booster-landing-burn.jpg"
+  });
+}
+
+if(navigator.canShare) {
+  share.style.display = 'block';
+  share.addEventListener('click', shareImage);
+}
+
+</script>
+
+</main>
+
+<footer class="page-footer">
+  <div class="page-footer__container horizontal">
+    <span class="page-footer__copyright">&copy; Copyright 2021 Forest Katsch. All rights reserved.</span>
+    <span class="page-footer__contact"><a href="../../about">About Me</a></span>
+  </div>
+
+</footer>
+
+
+  </body>
+</html>
