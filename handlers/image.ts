@@ -3,7 +3,7 @@ import * as path from 'https://deno.land/std@0.82.0/path/mod.ts';
 import {copy, ensureDir} from 'https://deno.land/std@0.82.0/fs/mod.ts';
 import _ from 'https://cdn.skypack.dev/lodash@4.17.19';
 import objectPath from 'https://cdn.skypack.dev/object-path';
-import exifr from 'https://cdn.skypack.dev/exifr';
+import exifr from 'https://cdn.skypack.dev/exifr@6.0.0';
 
 import {headerPublishDate, listingPublishDate} from './templates/date.ts';
 
