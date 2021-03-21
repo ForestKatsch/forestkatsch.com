@@ -3,7 +3,9 @@ import * as path from 'https://deno.land/std@0.82.0/path/mod.ts';
 import {copy, ensureDir} from 'https://deno.land/std@0.82.0/fs/mod.ts';
 import _ from 'https://cdn.skypack.dev/lodash@4.17.19';
 import objectPath from 'https://cdn.skypack.dev/object-path';
-import exifr from 'https://cdn.skypack.dev/exifr@6.0.0';
+//import {create as createExif} from 'https://deno.land/x/deno_exif@0.0.2/mod.ts';
+//import exifr from 'https://cdn.skypack.dev/exifr@6.0.0';
+//import exifJs from 'https://cdn.skypack.dev/exif-js@2.3.0';
 
 import {headerPublishDate, listingPublishDate} from './templates/date.ts';
 
@@ -36,14 +38,17 @@ async function copyNeeded(source: string, dest: string): Promise<boolean> {
 
 }
 
+/*
 async function readExif(filename: string): Promise<ExifData> {
   try {
-    let contents = await Deno.readFile(filename);
-    return await exifr.parse(contents);
+    let data = await ExifPromise({image: await Deno.readFile(filename)});
+    return data;
   } catch(err) {
+    console.log(err);
     throw new ApogeeError(`cannot read exif data from '${filename}'`, err);
   }
 }
+*/
 
 async function getImageSize(filename: string): Promise<number[]> {
   try {
@@ -188,10 +193,12 @@ export default class ImageContentHandler extends TextContentHandler {
     let imageSize = await getImageSize(page.contentFilename);
 
     try {
-      exif = await readExif(page.contentFilename);
+      //exif = await readExif(page.contentFilename);
 
-      if(!exif) {
-        // Do nothing if the exif is null.
+      // TODO: read EXIF.
+      if(true) {
+        page.addTag('@photo');
+        imageType = 'photo';
       } else if(!exif.ExposureTime) {
         imageType = 'image';
       } else {
