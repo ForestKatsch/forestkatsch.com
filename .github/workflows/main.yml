@@ -34,10 +34,9 @@ jobs:
         
       - name: Build
         run: ./build.sh
-        
-      - name: Deploy Site to Netlify
-        uses: JacobSamro/netlify-deploy@v0.6
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          NETLIFY_AUTH_TOKEN: v53b5d3ao9jhzZ7gndSi8s5Ohjf9h8eS3gqn0Hn5ZfI 
-          NETLIFY_SITE_ID: 346671a0-2df0-4a82-8649-854f534c806d
-          FOLDER_TO_UPLOAD: dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
