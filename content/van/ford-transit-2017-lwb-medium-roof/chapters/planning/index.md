@@ -3,6 +3,8 @@ title = "Planning the Layout"
 
 category = "van"
 
+draft = true
+
 summary = """
 """
 

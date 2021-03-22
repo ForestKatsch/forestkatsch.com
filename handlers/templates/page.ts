@@ -41,7 +41,7 @@ export function pageFooter(page: Page): TemplateResult {
 <footer class="page-footer">
   <div class="page-footer__container horizontal">
     <span class="page-footer__copyright">&copy; Copyright ${new Date().getFullYear()} Forest Katsch. ${pageLicense}</span>
-    <span class="page-footer__contact"><a href="${page.link('/about')}">About Me</a></span>
+    <!--<span class="page-footer__contact"><a href="${page.link('/about')}">About Me</a></span>-->
   </div>
 ${pageDetails}
 </footer>
