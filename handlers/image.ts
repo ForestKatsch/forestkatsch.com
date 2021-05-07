@@ -32,6 +32,13 @@ type ExifData = {
   }
 };
 
+async function runCommand(cmd: string[]): Promise<string> {
+  console.log('Running: ', cmd.join(' '));
+  return await Deno.run({
+    cmd: cmd
+  }).status();
+}
+
 async function copyNeeded(source: string, dest: string): Promise<boolean> {
   try {
     let sourceStat = await Deno.stat(source);
@@ -177,13 +184,12 @@ async function getImageSize(filename: string): Promise<number[]> {
 
 // Returns `true` if the operation was run.
 async function convert(source: string, dest: string, args: string = ''): Promise<boolean> {
+  /*
   if(!(await copyNeeded(source, dest))) {
     return false;
-  }
-  
-  const results = await Deno.run({
-    cmd: ['convert', ...args.split(/\s/g), source, dest],
-  }).status();
+  }*/
+
+  await runCommand(['convert', source, ...args.split(/\s/g), dest]);
 
   return true;
 }
@@ -303,9 +309,7 @@ export default class ImageContentHandler extends TextContentHandler {
 
       // TODO: read EXIF.
       if(!exif) {
-        imageType = 'image';
       } else if(!exif.capture.exposure) {
-        imageType = 'image';
       } else {
         page.addTag('@photo');
         imageType = 'photo';
@@ -360,22 +364,22 @@ export default class ImageContentHandler extends TextContentHandler {
     
     if(!(await copyNeeded(source, this.getFilesystemMediaOutputPath(page, 'orig', true)))) {
       // Remove the following line to force a complete conversion for every image no matter what (will be very slow!)
-      return;
+      // return;
     }
     
     this.site.log.debug(`copying/converting image '${page.sourcePath}'`);
 
     await copy(source, this.getFilesystemMediaOutputPath(page, 'orig', true), {overwrite: true});
     
-    await convertResize(source, this.getFilesystemMediaOutputPath(page), 3840, 2160, '-quality 98 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page), 3840, 2160, '-quality 90 -strip -interlace Plane');
     await watermark(this.getFilesystemMediaOutputPath(page));
 
     // 'cover' image is a small-ish image used as the primary image on most places.
     // It can be shown full-width, so we need to keep it rather big, but we keep quality lowish.
-    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 98 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'cover'), 2560, 1440, '-quality 90 -strip -interlace Plane');
 
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
-    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 640, '-quality 90 -strip -interlace Plane');
+    await convertResize(source, this.getFilesystemMediaOutputPath(page, 'listing'), 840, 640, '-quality 80 -strip -interlace Plane');
     
     // This is the version that appears in listings, etc. at a fixed size, so it can be quite small.
     await convert(source, this.getFilesystemMediaOutputPath(page, 'thumbnail'), '-resize 256x256^ -gravity Center -extent 256x256 -quality 65 -strip -interlace Plane');
